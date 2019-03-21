@@ -23,7 +23,7 @@ public class PickTower extends Tower implements ActionListener
 	
 	public void actionPerformed(ActionEvent e)
 	{
-		for (int row = 0; row < pickedTower.length; row++)
+		for (int row = 0; row < pickedTower.length-1; row++)
 		{
 			for (int col = 0; col < pickedTower[0].length; col++)
 			{
@@ -31,11 +31,37 @@ public class PickTower extends Tower implements ActionListener
 				{
 					towerButtons[row][col].setBorder(new LineBorder(Color.GRAY));
 					pickedTower[row][col] = false;
+					towerButtons[row][col].setEnabled(true);
 				}
 			}
 		}
 		
-		towerButtons[r][c].setBorder(new LineBorder(Color.BLACK, 2));
-		pickedTower[r][c] = true;
+		if (r < pickedTower.length-1 && c < pickedTower[0].length)
+		{
+			towerButtons[r][c].setBorder(new LineBorder(Color.BLACK, 2));
+			pickedTower[r][c] = true;
+			towerButtons[r][c].setEnabled(false);
+		}
+		else
+		{
+			if (c == 0)
+			{
+				towerButtons[r][c].setText("");
+				towerButtons[r][c].setBackground(Color.WHITE);
+				towerButtons[r][c].setEnabled(false);
+				towerButtons[r][c+1].setText("");
+				towerButtons[r][c+1].setBackground(Color.WHITE);
+				towerButtons[r][c+1].setEnabled(false);
+			}
+			else
+			{
+				towerButtons[r][c].setText("");
+				towerButtons[r][c].setBackground(Color.WHITE);
+				towerButtons[r][c].setEnabled(false);
+				towerButtons[r][c-1].setText("");
+				towerButtons[r][c-1].setBackground(Color.WHITE);
+				towerButtons[r][c-1].setEnabled(false);
+			}
+		}
 	}
 }

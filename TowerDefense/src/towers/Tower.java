@@ -11,7 +11,7 @@ public class Tower
 	
 	public Tower()
 	{
-		
+		//System.out.println("Tower Default Constructor");
 	}
 	
 	public Tower(JButton[][] towerButtons, int r, int c)
@@ -20,6 +20,7 @@ public class Tower
 		this.r = r;
 		this.c = c;
 	}
+	
 	public Color getColor()
 	{
 		return color;

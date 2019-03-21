@@ -2,7 +2,6 @@ package main;
 
 import java.awt.*;
 import javax.swing.*;
-import javax.swing.border.LineBorder;
 
 import towers.Skeleton;
 import towers.Tower;
@@ -53,7 +52,7 @@ public class GUI extends JPanel
 		{	
 	         for(int c = 0; c < board[0].length; c++)
 	         {
-	            board[r][c] = 0;
+	        	board[r][c] = 0;
 	            buttons[r][c] = new JButton();
 	            buttons[r][c].setBackground(Color.GREEN);
 	            buttons[r][c].addActionListener(new PlaceTower(towers, pickedTower, buttons, r, c));
@@ -85,8 +84,19 @@ public class GUI extends JPanel
 			}
 		}
 		
+		// Creates Towers
 		towers[0][0] = new Skeleton();
 		towerButtons[0][0].setBackground(towers[0][0].getColor());
+		
+		// Creates Start Button
+		towerButtons[14][0].setBorder(null);
+		towerButtons[14][1].setBorder(null);
+		towerButtons[14][0].setBackground(Color.CYAN);
+		towerButtons[14][1].setBackground(Color.CYAN);
+		towerButtons[14][0].setText("START");
+		towerButtons[14][1].setText("GAME");
+		towerButtons[14][0].addActionListener(new StartLevel(buttons, board));
+		towerButtons[14][1].addActionListener(new StartLevel(buttons, board));
 	}
 	
 	public void createPath()

@@ -22,13 +22,14 @@ public class PlaceTower extends Tower implements ActionListener
 	
 	public void actionPerformed(ActionEvent e)
 	{
-		for (int row = 0; row < 15; row++)
+		for (int row = 0; row < pickedTower.length-1; row++)
 		{
-			for (int col = 0; col < 2; col++)
+			for (int col = 0; col < pickedTower[0].length; col++)
 			{
 				if (pickedTower[row][col])
 				{
 					buttons[r][c].setBackground(towers[row][col].getColor());
+					buttons[r][c].setEnabled(false);
 				}
 			}
 		}
