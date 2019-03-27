@@ -1,5 +1,7 @@
 package enemy;
 
+import java.awt.Color;
+
 import javax.swing.JButton;
 
 public class Enemy 
@@ -7,6 +9,7 @@ public class Enemy
 	public int health, speed;
 	public JButton[][] buttons;
 	public int[][] board;
+	public Color color;
 	
 	public Enemy()
 	{
@@ -27,5 +30,10 @@ public class Enemy
 	public int getSpeed()
 	{
 		return speed;
+	}
+	
+	public Color getColor()
+	{
+		return color;
 	}
 }

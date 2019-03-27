@@ -21,7 +21,6 @@ public class GUI extends JPanel
 	{	
 		setLayout(new BorderLayout());
 		createNorth();
-		createEast();
 		createCenter();
 		createPath();
 	}
@@ -42,61 +41,52 @@ public class GUI extends JPanel
 	public void createCenter()
 	{
 		JPanel center = new JPanel();
-		center.setLayout(new GridLayout(15,15));
-		center.setPreferredSize(new Dimension(920, 920));
+		center.setLayout(new GridLayout(15,17));
 		add(center, BorderLayout.CENTER);
-		buttons = new JButton[15][15];
-		board = new int[15][15];
 		
-		for(int r = 0; r < board.length; r++)
+		board = new int[15][17];
+		buttons = new JButton[15][17];
+		pickedTower = new boolean[15][17];
+		towers = new Tower[15][17];
+		
+		for(int r = 0; r < buttons.length; r++)
 		{	
-	         for(int c = 0; c < board[0].length; c++)
-	         {
-	        	board[r][c] = 0;
-	            buttons[r][c] = new JButton();
-	            buttons[r][c].setBackground(Color.GREEN);
-	            buttons[r][c].addActionListener(new PlaceTower(towers, pickedTower, buttons, r, c));
-	            center.add(buttons[r][c]);
-	         }
-		}
-	}
-	
-	public void createEast()
-	{
-		JPanel east = new JPanel();
-		east.setLayout(new GridLayout(15, 2));
-		east.setPreferredSize(new Dimension(200,920));
-		add(east, BorderLayout.EAST);
-		
-		towerButtons = new JButton[15][2];
-		pickedTower = new boolean[15][2];
-		towers = new Tower[15][2];
-		
-		for(int towerR = 0; towerR < towers.length; towerR++)
-		{
-			for(int towerC = 0; towerC < towers[0].length; towerC++)
-			{
-				towerButtons[towerR][towerC] = new JButton();
-				towerButtons[towerR][towerC].setBackground(Color.WHITE);
-				east.add(towerButtons[towerR][towerC]);
-				towerButtons[towerR][towerC].addActionListener(new PickTower(towerButtons, pickedTower, towerR, towerC));
-				pickedTower[towerR][towerC] = false;
-			}
+			for(int c = 0; c < buttons[0].length; c++)
+	        {
+				if (c < 15)
+	        	{
+	        		board[r][c] = 0;
+					buttons[r][c] = new JButton();
+					buttons[r][c].setBackground(Color.GREEN);
+					buttons[r][c].addActionListener(new PlaceTower(towers, pickedTower, buttons, r, c));
+					pickedTower[r][c] = false;
+					towers[r][c] = null;
+					center.add(buttons[r][c]);
+	        	}
+	        	else // Tower Panel
+	        	{
+	        		buttons[r][c] = new JButton();
+	        		buttons[r][c].setBackground(Color.WHITE);
+	        		buttons[r][c].addActionListener(new PickTower(buttons, pickedTower, r, c));
+	        		pickedTower[r][c] = false;
+	        		center.add(buttons[r][c]);
+	        	}
+	        }
 		}
 		
-		// Creates Towers
-		towers[0][0] = new Skeleton();
-		towerButtons[0][0].setBackground(towers[0][0].getColor());
+		// Towers
+		towers[0][15] = new Skeleton();
+		buttons[0][15].setBackground(towers[0][15].getColor());
 		
 		// Creates Start Button
-		towerButtons[14][0].setBorder(null);
-		towerButtons[14][1].setBorder(null);
-		towerButtons[14][0].setBackground(Color.CYAN);
-		towerButtons[14][1].setBackground(Color.CYAN);
-		towerButtons[14][0].setText("START");
-		towerButtons[14][1].setText("GAME");
-		towerButtons[14][0].addActionListener(new StartLevel(buttons, board));
-		towerButtons[14][1].addActionListener(new StartLevel(buttons, board));
+		buttons[14][15].setBorder(null);
+		buttons[14][16].setBorder(null);
+		buttons[14][15].setBackground(Color.CYAN);
+		buttons[14][16].setBackground(Color.CYAN);
+		buttons[14][15].setText("START");
+		buttons[14][16].setText("GAME");
+		buttons[14][15].addActionListener(new StartLevel(buttons, board));
+		buttons[14][16].addActionListener(new StartLevel(buttons, board));
 	}
 	
 	public void createPath()

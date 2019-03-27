@@ -10,12 +10,12 @@ import towers.Tower;
 public class PickTower extends Tower implements ActionListener
 {
 	public int r, c;
-	public JButton [][] towerButtons;
+	public JButton [][] buttons;
 	public boolean [][] pickedTower;
 	
-	public PickTower(JButton[][] towerButtons, boolean[][] pickedTower, int r, int c)
+	public PickTower(JButton[][] buttons, boolean[][] pickedTower, int r, int c)
 	{
-		this.towerButtons = towerButtons;
+		this.buttons = buttons;
 		this.pickedTower = pickedTower;
 		this.r = r;
 		this.c = c;
@@ -23,44 +23,42 @@ public class PickTower extends Tower implements ActionListener
 	
 	public void actionPerformed(ActionEvent e)
 	{
-		for (int row = 0; row < pickedTower.length-1; row++)
+		for (int row = 0; row < buttons.length-1; row++)
 		{
-			for (int col = 0; col < pickedTower[0].length; col++)
+			for (int col = 0; col < buttons[0].length; col++)
 			{
-				if (pickedTower[row][col])
+				if (pickedTower[row][col]) // Resets a button that was selected previously
 				{
-					towerButtons[row][col].setBorder(new LineBorder(Color.GRAY));
+					buttons[row][col].setBorder(new LineBorder(Color.GRAY));
 					pickedTower[row][col] = false;
-					towerButtons[row][col].setEnabled(true);
+					buttons[row][col].setEnabled(true);
 				}
 			}
 		}
 		
-		if (r < pickedTower.length-1 && c < pickedTower[0].length)
-		{
-			towerButtons[r][c].setBorder(new LineBorder(Color.BLACK, 2));
-			pickedTower[r][c] = true;
-			towerButtons[r][c].setEnabled(false);
-		}
-		else
-		{
-			if (c == 0)
+		if (r < pickedTower.length && c < pickedTower[0].length) // Clicked one of the towers
+		{	
+			if (r == 14)
 			{
-				towerButtons[r][c].setText("");
-				towerButtons[r][c].setBackground(Color.WHITE);
-				towerButtons[r][c].setEnabled(false);
-				towerButtons[r][c+1].setText("");
-				towerButtons[r][c+1].setBackground(Color.WHITE);
-				towerButtons[r][c+1].setEnabled(false);
+				buttons[14][15].setText("");
+				buttons[14][15].setBackground(Color.WHITE);
+				buttons[14][15].setEnabled(false);
+				buttons[14][15].setText("");
+				buttons[14][15].setBackground(Color.WHITE);
+				buttons[14][15].setEnabled(false);
+				
+				buttons[14][16].setText("");
+				buttons[14][16].setBackground(Color.WHITE);
+				buttons[14][16].setEnabled(false);
+				buttons[14][16].setText("");
+				buttons[14][16].setBackground(Color.WHITE);
+				buttons[14][16].setEnabled(false);
 			}
 			else
 			{
-				towerButtons[r][c].setText("");
-				towerButtons[r][c].setBackground(Color.WHITE);
-				towerButtons[r][c].setEnabled(false);
-				towerButtons[r][c-1].setText("");
-				towerButtons[r][c-1].setBackground(Color.WHITE);
-				towerButtons[r][c-1].setEnabled(false);
+				buttons[r][c].setBorder(new LineBorder(Color.BLACK, 3));
+				pickedTower[r][c] = true;
+				buttons[r][c].setEnabled(false);
 			}
 		}
 	}

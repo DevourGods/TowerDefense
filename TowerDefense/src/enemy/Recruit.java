@@ -1,5 +1,7 @@
 package enemy;
 
+import java.awt.Color;
+
 public class Recruit extends Enemy
 {
 	int amount;
@@ -8,6 +10,7 @@ public class Recruit extends Enemy
 		amount = 1;
 		health = 1;
 		speed = 1;
+		color = Color.RED;
 	}
 	public Recruit(int amount)
 	{

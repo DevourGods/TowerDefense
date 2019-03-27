@@ -15,7 +15,6 @@ public class LevelDatabase
 		
 		ArrayList<Enemy> L1 = new ArrayList<Enemy>(Arrays.asList( new Recruit(5)  ));
 		levels.add(L1);
-		
 	}
 	
 	public ArrayList<Enemy> returnLevel(int level)

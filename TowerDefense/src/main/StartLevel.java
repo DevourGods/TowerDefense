@@ -1,5 +1,6 @@
 package main;
 
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -15,6 +16,8 @@ public class StartLevel implements ActionListener
 	public JButton [][] buttons;
 	public int [][] board;
 	public ArrayList<Enemy> enemy;
+	public int r;
+	public int c;
 	
 	public Timer timer;
 	private final int ONE_SECOND = 1000;
@@ -36,10 +39,38 @@ public class StartLevel implements ActionListener
 			{
 				public void actionPerformed(ActionEvent e)
 				{
-					System.out.println("TEST");
+					if (board[r+1][c] == board[r][c] + 1)
+					{
+						buttons[r][c].setBackground(Color.YELLOW);
+						buttons[r+1][c].setBackground(enemy.get(0).getColor());
+						r++;
+					}
+					else if (board[r-1][c] == board[r][c] + 1)
+					{
+						buttons[r][c].setBackground(Color.YELLOW);
+						buttons[r-1][c].setBackground(enemy.get(0).getColor());
+						r--;
+					}
+					else if (board[r][c+1] == board[r][c] + 1)
+					{
+						buttons[r][c].setBackground(Color.YELLOW);
+						buttons[r][c+1].setBackground(enemy.get(0).getColor());
+						c++;
+					}
+					else if (board[r][c-1] == board[r][c] + 1)
+					{
+						buttons[r][c].setBackground(Color.YELLOW);
+						buttons[r][c-1].setBackground(enemy.get(0).getColor());
+						c--;
+					}
+					
 				}
 			}
 		); //timer
 		timer.start();
+		buttons[startX][startY].setBackground(enemy.get(0).getColor());
+		r = startX;
+		c = startY;
+		
 	}
 }
