@@ -9,13 +9,15 @@ public class PlaceTower extends Tower implements ActionListener
 	public int r, c;
 	public Tower [][] towers;
 	public JButton [][] buttons;
+	public int [][] board;
 	public boolean [][] pickedTower;
 	
-	public PlaceTower(Tower [][] towers, boolean[][] pickedTower, JButton[][] buttons, int r, int c)
+	public PlaceTower(Tower [][] towers, boolean[][] pickedTower, JButton[][] buttons, int[][] board, int r, int c)
 	{
 		this.towers = towers;
 		this.pickedTower = pickedTower;
 		this.buttons = buttons;
+		this.board = board;
 		this.r = r;
 		this.c = c;
 	}
@@ -26,7 +28,7 @@ public class PlaceTower extends Tower implements ActionListener
 		{
 			for (int col = 0; col < pickedTower[0].length; col++)
 			{
-				if (pickedTower[row][col])
+				if (pickedTower[row][col] && board[r][c] == 0)
 				{
 					Icon icon = new ImageIcon(towers[row][col].getImagePlaced());
 					buttons[r][c].setIcon(icon);
