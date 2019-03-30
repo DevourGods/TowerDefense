@@ -1,6 +1,8 @@
 package main;
 
 import java.awt.*;
+import java.awt.image.BufferedImage;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import towers.Skeleton;
@@ -9,21 +11,60 @@ import towers.Tower;
 public class GUI extends JPanel
 {
 	public static final long serialVersionUID = 1L;
-		
+	public static int h;
+	public static int w;
+	
 	public JButton [][] buttons;
 	public int [][] board;
-	
 	public JButton[][] towerButtons;
 	public boolean[][] pickedTower;
 	public Tower[][] towers;
 	
+	public BufferedImage image;
+	
 	public GUI()
 	{	
+		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+		h = (int)screenSize.getHeight();
+		w = (int)screenSize.getWidth();
+		
 		setLayout(new BorderLayout());
-		createNorth();
-		createCenter();
-		createPath();
+		
+		startMenu();
+		
+		//createNorth();
+		//createCenter();
+		//createSides();
+		//createPath();
 	}
+	
+	public void startMenu()
+	{	
+		ImagePanel menu = new ImagePanel("/resources/Menu.jpg");
+		menu.setLayout(new BoxLayout(menu, BoxLayout.Y_AXIS));
+		
+		JLabel title = new JLabel();
+		BufferedImage titleImage = null;
+		try
+		{
+			titleImage = ImageIO.read(getClass().getResource("/resources/title.png"));
+		}
+		catch(Exception e)
+		{
+		}
+		title.setIcon(new ImageIcon(titleImage));
+		title.setAlignmentX(Component.CENTER_ALIGNMENT);
+		
+		menu.add(title);
+		//JButton startBTN = new JButton("Start");
+		//JButton optionsBTN = new JButton("Options");
+		//menu.add(startBTN);
+		//menu.add(optionsBTN);
+		
+		add(menu);
+		
+	}
+	
 	
 	public void createNorth()
 	{
@@ -39,7 +80,7 @@ public class GUI extends JPanel
 	}
 	
 	public void createCenter()
-	{
+	{	
 		JPanel center = new JPanel();
 		center.setLayout(new GridLayout(15,17));
 		add(center, BorderLayout.CENTER);
@@ -100,12 +141,28 @@ public class GUI extends JPanel
 		// Creates Start Button
 		buttons[14][15].setBorder(null);
 		buttons[14][16].setBorder(null);
-		buttons[14][15].setBackground(Color.CYAN);
-		buttons[14][16].setBackground(Color.CYAN);
+		buttons[14][15].setBackground(null);
+		buttons[14][16].setBackground(null);
 		buttons[14][15].setText("START");
 		buttons[14][16].setText("GAME");
 		buttons[14][15].addActionListener(new StartLevel(buttons, board));
 		buttons[14][16].addActionListener(new StartLevel(buttons, board));
+	}
+	
+	public void createSides()
+	{
+		int buffer = (w-h) / 17; // To make the grids squares since the Grid is 15x17
+		System.out.println(buffer);
+		
+		JPanel west = new JPanel();
+		west.setLayout(new FlowLayout());
+		west.setPreferredSize(new Dimension(((w-h)/2) - buffer, h));
+		add(west, BorderLayout.WEST);
+		
+		JPanel east = new JPanel();
+		east.setLayout(new FlowLayout());
+		east.setPreferredSize(new Dimension(((w-h)/2) - buffer, h));
+		add(east, BorderLayout.EAST);
 	}
 	
 	public void createPath()
@@ -133,13 +190,14 @@ public class GUI extends JPanel
 			}
 		}
 	}
-
+	
 	public static void main(String[] args)
     {
 		JFrame frame = new JFrame("Undead Defense");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);  
-        frame.setSize(1180, 920);
-        frame.setLocation(350, 100);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
+        frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        frame.pack();
+        frame.setLocationRelativeTo(null);
         frame.setContentPane(new GUI());
         frame.setVisible(true);
     }
