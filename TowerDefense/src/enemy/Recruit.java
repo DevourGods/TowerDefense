@@ -1,22 +1,24 @@
 package enemy;
 
-import java.awt.Color;
+import javax.imageio.ImageIO;
 
 public class Recruit extends Enemy
 {
 	int amount;
-	public Recruit()
-	{
-		amount = 1;
-		health = 1;
-		speed = 1;
-		color = Color.RED;
-	}
+
 	public Recruit(int amount)
 	{
-		this.amount = amount;
-		health = 1;
-		speed = 1;
+		try
+		{
+			this.amount = amount;
+			health = 1;
+			speed = 1;
+			image = ImageIO.read(getClass().getResource("/resources/SlimePath.png"));
+		}
+		catch(Exception e)
+		{
+			System.out.println("Can't find recruit image");
+		}
 	}
 	
 	public int getAmount()

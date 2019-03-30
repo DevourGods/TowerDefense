@@ -1,11 +1,13 @@
 package main;
 
-import java.awt.Color;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import javax.swing.Timer;
-
+import javax.imageio.ImageIO;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
 import enemy.Enemy;
@@ -24,6 +26,9 @@ public class StartLevel implements ActionListener
 	private final static int startX = 5;
 	private final static int startY = 0;
 	
+	public Icon test;
+	public Icon path;
+	
 	public StartLevel(JButton[][] buttons, int[][] board)
 	{
 		this.buttons = buttons;
@@ -41,36 +46,46 @@ public class StartLevel implements ActionListener
 				{
 					if (board[r+1][c] == board[r][c] + 1)
 					{
-						buttons[r][c].setBackground(Color.YELLOW);
-						buttons[r+1][c].setBackground(enemy.get(0).getColor());
+						buttons[r+1][c].setIcon(test);
+						buttons[r][c].setIcon(path);
 						r++;
 					}
 					else if (board[r-1][c] == board[r][c] + 1)
 					{
-						buttons[r][c].setBackground(Color.YELLOW);
-						buttons[r-1][c].setBackground(enemy.get(0).getColor());
+						buttons[r-1][c].setIcon(test);
+						buttons[r][c].setIcon(path);
 						r--;
 					}
 					else if (board[r][c+1] == board[r][c] + 1)
 					{
-						buttons[r][c].setBackground(Color.YELLOW);
-						buttons[r][c+1].setBackground(enemy.get(0).getColor());
+						buttons[r][c+1].setIcon(test);
+						buttons[r][c].setIcon(path);
 						c++;
 					}
 					else if (board[r][c-1] == board[r][c] + 1)
 					{
-						buttons[r][c].setBackground(Color.YELLOW);
-						buttons[r][c-1].setBackground(enemy.get(0).getColor());
+						buttons[r][c-1].setIcon(test);
+						buttons[r][c].setIcon(path);
 						c--;
 					}
 					
 				}
 			}
 		); //timer
+		
 		timer.start();
-		buttons[startX][startY].setBackground(enemy.get(0).getColor());
 		r = startX;
 		c = startY;
-		
+		test = new ImageIcon(enemy.get(0).getImage());
+		try
+		{
+			Image image = ImageIO.read(getClass().getResource("/resources/Path.png"));
+			path = new ImageIcon(image);
+		}
+		catch(Exception ex)
+		{
+		}
+		buttons[r][c].setIcon(test);
+
 	}
 }
