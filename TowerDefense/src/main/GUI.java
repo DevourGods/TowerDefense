@@ -63,7 +63,7 @@ public class GUI extends JPanel
 						Image grass = ImageIO.read(getClass().getResource("/resources/Grass.png"));
 						buttons[r][c].setIcon(new ImageIcon(grass));
 						buttons[r][c].setBackground(new Color(65, 74, 45));
-						buttons[r][c].addActionListener(new PlaceTower(towers, pickedTower, buttons, r, c));
+						buttons[r][c].addActionListener(new PlaceTower(towers, pickedTower, buttons, board, r, c));
 						pickedTower[r][c] = false;
 						towers[r][c] = null;
 						center.add(buttons[r][c]);
