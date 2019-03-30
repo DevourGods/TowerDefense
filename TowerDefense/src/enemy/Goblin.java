@@ -2,22 +2,22 @@ package enemy;
 
 import javax.imageio.ImageIO;
 
-public class Recruit extends Enemy
+public class Goblin extends Enemy
 {
 	int amount;
 
-	public Recruit(int amount)
+	public Goblin(int amount)
 	{
 		try
 		{
 			this.amount = amount;
 			health = 1;
 			speed = 1;
-			image = ImageIO.read(getClass().getResource("/resources/SlimePath.png"));
+			image = ImageIO.read(getClass().getResource("/resources/Goblin-Path.png"));
 		}
 		catch(Exception e)
 		{
-			System.out.println("Can't find recruit image");
+			System.out.println("Can't find goblin image");
 		}
 	}
 	
@@ -28,6 +28,6 @@ public class Recruit extends Enemy
 	
 	public String toString()
 	{
-		return "Recruit(" + amount + ")"; 
+		return "Goblin(" + amount + ")"; 
 	}
 }

@@ -3,7 +3,7 @@ package main;
 import java.util.*;
 
 import enemy.Enemy;
-import enemy.Recruit;
+import enemy.Goblin;
 
 public class LevelDatabase 
 {
@@ -14,7 +14,7 @@ public class LevelDatabase
 		ArrayList<Enemy> dummy = null;
 		levels.add(dummy);
 		
-		ArrayList<Enemy> L1 = new ArrayList<Enemy>(Arrays.asList( new Recruit(5)  ));
+		ArrayList<Enemy> L1 = new ArrayList<Enemy>(Arrays.asList( new Goblin(5)  ));
 		levels.add(L1);
 	}
 	

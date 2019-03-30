@@ -3,7 +3,7 @@ package main;
 import java.awt.*;
 import javax.imageio.ImageIO;
 import javax.swing.*;
-import towers.Slime;
+import towers.Skeleton;
 import towers.Tower;
 
 public class GUI extends JPanel
@@ -87,12 +87,12 @@ public class GUI extends JPanel
 		// Towers
 		try
 		{
-			towers[0][15] = new Slime();
-			Icon slime = new ImageIcon(towers[0][15].getImage());
-			buttons[0][15].setIcon(slime);
-			buttons[0][15].setDisabledIcon(slime); // Prevents the icon from going grey when the button is disabled
+			towers[0][15] = new Skeleton();
+			Icon skeleton = new ImageIcon(towers[0][15].getImage());
+			buttons[0][15].setIcon(skeleton);
+			buttons[0][15].setDisabledIcon(skeleton); // Prevents the icon from going grey when the button is disabled
 		}
-		catch(Exception e)
+		catch (Exception e)
 		{
 			System.out.println("Can't find tower image!");
 		}
@@ -127,7 +127,7 @@ public class GUI extends JPanel
 				buttons[pathX[i]][pathY[i]].setDisabledIcon(new ImageIcon(path));
 				pathCounter++;
 			}
-			catch(Exception e)
+			catch (Exception e)
 			{
 				System.out.println("Can't find path image!");
 			}

@@ -7,6 +7,7 @@ public class Tower
 {
 	public int range, speed, r, c;
 	public Image image;
+	public Image imagePlaced;
 	public JButton [][] towerButtons;
 	
 	public Tower()
@@ -24,6 +25,11 @@ public class Tower
 	public Image getImage()
 	{
 		return image;
+	}
+	
+	public Image getImagePlaced()
+	{
+		return imagePlaced;
 	}
 	
 	public int getRange()

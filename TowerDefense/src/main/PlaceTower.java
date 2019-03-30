@@ -28,7 +28,7 @@ public class PlaceTower extends Tower implements ActionListener
 			{
 				if (pickedTower[row][col])
 				{
-					Icon icon = new ImageIcon(towers[row][col].getImage());
+					Icon icon = new ImageIcon(towers[row][col].getImagePlaced());
 					buttons[r][c].setIcon(icon);
 					buttons[r][c].setDisabledIcon(icon);
 				}
