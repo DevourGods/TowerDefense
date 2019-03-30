@@ -1,9 +1,9 @@
 package main;
 
 import java.awt.*;
+import javax.imageio.ImageIO;
 import javax.swing.*;
-
-import towers.Skeleton;
+import towers.Slime;
 import towers.Tower;
 
 public class GUI extends JPanel
@@ -53,15 +53,24 @@ public class GUI extends JPanel
 		{	
 			for(int c = 0; c < buttons[0].length; c++)
 	        {
-				if (c < 15)
+				if (c < 15) // Map
 	        	{
-	        		board[r][c] = 0;
-					buttons[r][c] = new JButton();
-					buttons[r][c].setBackground(Color.GREEN);
-					buttons[r][c].addActionListener(new PlaceTower(towers, pickedTower, buttons, r, c));
-					pickedTower[r][c] = false;
-					towers[r][c] = null;
-					center.add(buttons[r][c]);
+					try
+					{
+		        		board[r][c] = 0;
+						buttons[r][c] = new JButton();
+						Image grass = ImageIO.read(getClass().getResource("/resources/Grass.png"));
+						buttons[r][c].setIcon(new ImageIcon(grass));
+						buttons[r][c].setBackground(new Color(65, 74, 45));
+						buttons[r][c].addActionListener(new PlaceTower(towers, pickedTower, buttons, r, c));
+						pickedTower[r][c] = false;
+						towers[r][c] = null;
+						center.add(buttons[r][c]);
+					}
+					catch (Exception e)
+					{
+						System.out.println("Can't find grass image!");
+					}
 	        	}
 	        	else // Tower Panel
 	        	{
@@ -75,8 +84,17 @@ public class GUI extends JPanel
 		}
 		
 		// Towers
-		towers[0][15] = new Skeleton();
-		buttons[0][15].setBackground(towers[0][15].getColor());
+		try
+		{
+			towers[0][15] = new Slime();
+			Icon skeleton = new ImageIcon(towers[0][15].getImage());
+			buttons[0][15].setIcon(skeleton);
+			buttons[0][15].setDisabledIcon(skeleton); // Prevents the icon from going grey when the button is disabled
+		}
+		catch(Exception e)
+		{
+			System.out.println("Can't find tower image!");
+		}
 		
 		// Creates Start Button
 		buttons[14][15].setBorder(null);
@@ -97,10 +115,21 @@ public class GUI extends JPanel
 		int pathCounter = 1;
 		for (int i = 0; i < pathX.length; i++)
 		{
-			board[pathX[i]][pathY[i]] = pathCounter;
-			buttons[pathX[i]][pathY[i]].setBackground(Color.YELLOW);
-			buttons[pathX[i]][pathY[i]].setEnabled(false);
-			pathCounter++;
+			try
+			{
+				board[pathX[i]][pathY[i]] = pathCounter;
+				Image path = ImageIO.read(getClass().getResource("/resources/Path.png"));
+				buttons[pathX[i]][pathY[i]].setIcon(new ImageIcon(path));
+				buttons[pathX[i]][pathY[i]].setBackground(new Color(127, 114, 48));
+				buttons[pathX[i]][pathY[i]].setBorder(null);
+				buttons[pathX[i]][pathY[i]].setEnabled(false);
+				buttons[pathX[i]][pathY[i]].setDisabledIcon(new ImageIcon(path));
+				pathCounter++;
+			}
+			catch(Exception e)
+			{
+				System.out.println("Can't find path image!");
+			}
 		}
 	}
 

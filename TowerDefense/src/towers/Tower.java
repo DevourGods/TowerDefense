@@ -1,12 +1,12 @@
 package towers;
 
-import java.awt.Color;
+import java.awt.Image;
 import javax.swing.*;
 
 public class Tower
 {
 	public int range, speed, r, c;
-	public Color color;
+	public Image image;
 	public JButton [][] towerButtons;
 	
 	public Tower()
@@ -21,9 +21,9 @@ public class Tower
 		this.c = c;
 	}
 	
-	public Color getColor()
+	public Image getImage()
 	{
-		return color;
+		return image;
 	}
 	
 	public int getRange()
