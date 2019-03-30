@@ -49,6 +49,7 @@ public class GUI extends JPanel
 		pickedTower = new boolean[15][17];
 		towers = new Tower[15][17];
 		
+		// Creates Map
 		for(int r = 0; r < buttons.length; r++)
 		{	
 			for(int c = 0; c < buttons[0].length; c++)
@@ -87,9 +88,9 @@ public class GUI extends JPanel
 		try
 		{
 			towers[0][15] = new Slime();
-			Icon skeleton = new ImageIcon(towers[0][15].getImage());
-			buttons[0][15].setIcon(skeleton);
-			buttons[0][15].setDisabledIcon(skeleton); // Prevents the icon from going grey when the button is disabled
+			Icon slime = new ImageIcon(towers[0][15].getImage());
+			buttons[0][15].setIcon(slime);
+			buttons[0][15].setDisabledIcon(slime); // Prevents the icon from going grey when the button is disabled
 		}
 		catch(Exception e)
 		{
@@ -122,7 +123,7 @@ public class GUI extends JPanel
 				buttons[pathX[i]][pathY[i]].setIcon(new ImageIcon(path));
 				buttons[pathX[i]][pathY[i]].setBackground(new Color(127, 114, 48));
 				buttons[pathX[i]][pathY[i]].setBorder(null);
-				buttons[pathX[i]][pathY[i]].setEnabled(false);
+				//buttons[pathX[i]][pathY[i]].setEnabled(false);
 				buttons[pathX[i]][pathY[i]].setDisabledIcon(new ImageIcon(path));
 				pathCounter++;
 			}

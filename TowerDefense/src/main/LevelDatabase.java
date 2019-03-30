@@ -8,6 +8,7 @@ import enemy.Recruit;
 public class LevelDatabase 
 {
 	ArrayList<ArrayList<Enemy>> levels = new ArrayList<ArrayList<Enemy>>();
+	
 	public LevelDatabase()
 	{	
 		ArrayList<Enemy> dummy = null;
