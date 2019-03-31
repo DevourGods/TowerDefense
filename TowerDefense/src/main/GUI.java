@@ -11,6 +11,7 @@ import towers.Tower;
 public class GUI extends JPanel
 {
 	public static final long serialVersionUID = 1L;
+	public static JFrame frame;
 	public static int h;
 	public static int w;
 	
@@ -43,28 +44,62 @@ public class GUI extends JPanel
 		ImagePanel menu = new ImagePanel("/resources/Menu.jpg");
 		menu.setLayout(new BoxLayout(menu, BoxLayout.Y_AXIS));
 		
-		JLabel title = new JLabel();
-		BufferedImage titleImage = null;
+		OutlineLabel title = new OutlineLabel("Undead Defense", Color.BLACK);
+		JButton startBTN = new JButton();
+		JButton optionsBTN = new JButton();
+		JButton quitBTN = new JButton();
+		
 		try
 		{
-			titleImage = ImageIO.read(getClass().getResource("/resources/title.png"));
+			Font font = Font.createFont(Font.TRUETYPE_FONT, getClass().getResource("/resources/Zombie_Holocaust.ttf").openStream()); // /resources/BreatheFirst2.ttf
+			GraphicsEnvironment g = GraphicsEnvironment.getLocalGraphicsEnvironment();
+			g.registerFont(font);
+			font = font.deriveFont(150f);
+			title.setFont(font);
+			title.setForeground(new Color(100, 12, 0));
+			title.setAlignmentX(Component.CENTER_ALIGNMENT);
+			
+			BufferedImage startImage = ImageIO.read(getClass().getResource("/resources/StartButton.png"));
+			startBTN.setIcon(new ImageIcon(startImage));
+			startBTN.setOpaque(false);
+			startBTN.setContentAreaFilled(false);
+			startBTN.setBorderPainted(false);
+			startBTN.setBorder(null);
+			startBTN.setAlignmentX(Component.CENTER_ALIGNMENT);
+			
+			BufferedImage optionsImage = ImageIO.read(getClass().getResource("/resources/OptionsButton.png"));
+			optionsBTN.setIcon(new ImageIcon(optionsImage));
+			optionsBTN.setOpaque(false);
+			optionsBTN.setContentAreaFilled(false);
+			optionsBTN.setBorderPainted(false);
+			optionsBTN.setBorder(null);
+			optionsBTN.setAlignmentX(Component.CENTER_ALIGNMENT);
+			
+			BufferedImage quitImage = ImageIO.read(getClass().getResource("/resources/QuitButton.png"));
+			quitBTN.setIcon(new ImageIcon(quitImage));
+			quitBTN.setOpaque(false);
+			quitBTN.setContentAreaFilled(false);
+			quitBTN.setBorderPainted(false);
+			quitBTN.setBorder(null);
+			quitBTN.setAlignmentX(Component.CENTER_ALIGNMENT);
 		}
-		catch(Exception e)
+		catch (Exception e)
 		{
+			System.out.println("Can't find font in menu");
 		}
-		title.setIcon(new ImageIcon(titleImage));
-		title.setAlignmentX(Component.CENTER_ALIGNMENT);
 		
+		menu.add(Box.createRigidArea(new Dimension(0, 80))); // Spacing
 		menu.add(title);
-		//JButton startBTN = new JButton("Start");
-		//JButton optionsBTN = new JButton("Options");
-		//menu.add(startBTN);
-		//menu.add(optionsBTN);
+		menu.add(Box.createRigidArea(new Dimension(0, 130)));
+		menu.add(startBTN);
+		menu.add(optionsBTN);
+		menu.add(quitBTN);
+		
+		quitBTN.addActionListener(new Quit());
 		
 		add(menu);
 		
 	}
-	
 	
 	public void createNorth()
 	{
@@ -193,12 +228,14 @@ public class GUI extends JPanel
 	
 	public static void main(String[] args)
     {
-		JFrame frame = new JFrame("Undead Defense");
+		frame = new JFrame("Undead Defense");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
         frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
         frame.pack();
-        frame.setLocationRelativeTo(null);
+        frame.setLocation(0, 0);
         frame.setContentPane(new GUI());
         frame.setVisible(true);
+        //frame.setUndecorated(true);
+        //frame.setResizable(false);
     }
 }
