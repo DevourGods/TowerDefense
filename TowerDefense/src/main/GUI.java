@@ -50,6 +50,8 @@ public class GUI extends JPanel
 		
 	}
 	
+	// Main Menu
+	/*
 	public static void main(String[] args)
     {
 		JFrame frame = new JFrame("Undead Defense");
@@ -60,5 +62,5 @@ public class GUI extends JPanel
         frame.setVisible(true);
         frame.setResizable(false);
     }
-    
+    */
 }

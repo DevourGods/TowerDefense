@@ -6,6 +6,8 @@ Grass: https://opengameart.org/content/grass-textureseamless-2d
 Path: https://opengameart.org/content/seamless-2
 Rock: https://opengameart.org/content/seamless-2
 
+Paper: https://opengameart.org/content/sheet-of-old-paper
+
 Towers/Enemies:
 	https://opengameart.org/content/10-basic-rpg-enemies
 	https://opengameart.org/content/10-basic-rpg-enemies-the-goblin-supplement
@@ -13,3 +15,6 @@ Towers/Enemies:
 Fonts:
 	https://www.dafont.com/breathe-fire-ii.font
 	https://www.dafont.com/zombie-holocaust.font
+	
+Icon:
+	https://opengameart.org/content/creepy-thing

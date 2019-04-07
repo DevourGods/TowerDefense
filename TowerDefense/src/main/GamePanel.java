@@ -35,7 +35,6 @@ public class GamePanel extends JPanel implements Runnable
 	{
 		Graphics2D g2 = (Graphics2D) g;
 		buildMap(g2);
-
 	}
 	
 	private void buildMap(Graphics g)

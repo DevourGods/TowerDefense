@@ -1,6 +1,9 @@
 package main;
 
 import java.awt.Dimension;
+import java.net.URL;
+
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 
 public class Main
@@ -52,6 +55,10 @@ public class Main
 		mainFrame.setLayout(null);
 		mainFrame.setResizable(false);
 		
+		URL iconURL = getClass().getResource("/resources/Icon.png"); // JFrame icon
+		ImageIcon icon = new ImageIcon(iconURL);
+		mainFrame.setIconImage(icon.getImage());
+		
 		mainFrame.add(actionPanel);
 		actionPanel.setBounds(0,0, w/4, h);
 		
@@ -61,7 +68,6 @@ public class Main
 		mainFrame.setLocationRelativeTo(null);
 		mainFrame.setVisible(true);
 	}
-	
 	
 	public static void main(String [] args)
 	{
