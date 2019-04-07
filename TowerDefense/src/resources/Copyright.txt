@@ -1,0 +1,15 @@
+All images used in this game will be listed here:
+
+Main Menu: https://imgur.com/a/bMHTEnt
+
+Grass: https://opengameart.org/content/grass-textureseamless-2d
+Path: https://opengameart.org/content/seamless-2
+Rock: https://opengameart.org/content/seamless-2
+
+Towers/Enemies:
+	https://opengameart.org/content/10-basic-rpg-enemies
+	https://opengameart.org/content/10-basic-rpg-enemies-the-goblin-supplement
+
+Fonts:
+	https://www.dafont.com/breathe-fire-ii.font
+	https://www.dafont.com/zombie-holocaust.font

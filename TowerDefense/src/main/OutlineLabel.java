@@ -1,6 +1,7 @@
 package main;
 
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Graphics;
 import javax.swing.JLabel;
 
@@ -16,15 +17,14 @@ public class OutlineLabel extends JLabel
         super();
     }
 
-    public OutlineLabel(String text, Color outlineColor)
+    public OutlineLabel(String text, boolean isCenter, Color outlineColor)
     {
         super(text);
         this.outlineColor = outlineColor;
-    }
-
-    public OutlineLabel(String text, int horizontalAlignment)
-    {
-        super(text, horizontalAlignment);
+        if (isCenter)
+        {
+        	setAlignmentX(Component.CENTER_ALIGNMENT);
+        }
     }
 
     public Color getOutlineColor()
@@ -65,10 +65,11 @@ public class OutlineLabel extends JLabel
     }
 
     @Override
-    public void paint(Graphics g) {
-
+    public void paint(Graphics g)
+    {
         String text = getText();
-        if ( text == null || text.length() == 0 ) {
+        if ( text == null || text.length() == 0 )
+        {
             super.paint(g);
             return;
         }
@@ -78,8 +79,10 @@ public class OutlineLabel extends JLabel
         // 7 6 5
 
         if ( isOpaque() )
-            super.paint(g);
-
+        {
+        	super.paint(g);
+        }
+        
         forceTransparent = true;
         isPaintingOutline = true;
         g.translate(-1, -1); super.paint(g); // 1 
@@ -95,6 +98,5 @@ public class OutlineLabel extends JLabel
 
         super.paint(g);
         forceTransparent = false;
-
     }
 }    

@@ -24,7 +24,7 @@ public class ImagePanel extends JPanel
 	    } 
 		catch (Exception e) 
 		{
-	        System.out.println("Image not found");
+	        System.out.println("Can't find " + image);
 	    }
 
 	}

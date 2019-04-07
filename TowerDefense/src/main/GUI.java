@@ -1,241 +1,64 @@
 package main;
 
 import java.awt.*;
-import java.awt.image.BufferedImage;
-
-import javax.imageio.ImageIO;
 import javax.swing.*;
-import towers.Skeleton;
-import towers.Tower;
 
 public class GUI extends JPanel
 {
 	public static final long serialVersionUID = 1L;
-	public static JFrame frame;
-	public static int h;
-	public static int w;
+	private static Dimension frameSize = new Dimension(1280, 720);
 	
-	public JButton [][] buttons;
-	public int [][] board;
-	public JButton[][] towerButtons;
-	public boolean[][] pickedTower;
-	public Tower[][] towers;
-	
-	public BufferedImage image;
+	public final static int w = 1280;
+	public final static int h = 720;
 	
 	public GUI()
 	{	
-		Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-		h = (int)screenSize.getHeight();
-		w = (int)screenSize.getWidth();
-		
 		setLayout(new BorderLayout());
 		
 		startMenu();
-		
-		//createNorth();
-		//createCenter();
-		//createSides();
-		//createPath();
 	}
 	
 	public void startMenu()
 	{	
-		ImagePanel menu = new ImagePanel("/resources/Menu.jpg");
+		ImagePanel menu = new ImagePanel("/resources/Menu-Small.png");
 		menu.setLayout(new BoxLayout(menu, BoxLayout.Y_AXIS));
 		
-		OutlineLabel title = new OutlineLabel("Undead Defense", Color.BLACK);
-		JButton startBTN = new JButton();
-		JButton optionsBTN = new JButton();
-		JButton quitBTN = new JButton();
+		OutlineLabel title = new OutlineLabel("Undead Defense", true, Color.BLACK);
+		ImageButton startBTN = new ImageButton("/resources/StartButton.png", true, 0.7);
+		ImageButton optionsBTN = new ImageButton("/resources/OptionsButton.png", true, 0.7);
+		ImageButton quitBTN = new ImageButton("/resources/QuitButton.png", true, 0.7);
 		
-		try
-		{
-			Font font = Font.createFont(Font.TRUETYPE_FONT, getClass().getResource("/resources/Zombie_Holocaust.ttf").openStream()); // /resources/BreatheFirst2.ttf
-			GraphicsEnvironment g = GraphicsEnvironment.getLocalGraphicsEnvironment();
-			g.registerFont(font);
-			font = font.deriveFont(150f);
-			title.setFont(font);
-			title.setForeground(new Color(100, 12, 0));
-			title.setAlignmentX(Component.CENTER_ALIGNMENT);
-			
-			BufferedImage startImage = ImageIO.read(getClass().getResource("/resources/StartButton.png"));
-			startBTN.setIcon(new ImageIcon(startImage));
-			startBTN.setOpaque(false);
-			startBTN.setContentAreaFilled(false);
-			startBTN.setBorderPainted(false);
-			startBTN.setBorder(null);
-			startBTN.setAlignmentX(Component.CENTER_ALIGNMENT);
-			
-			BufferedImage optionsImage = ImageIO.read(getClass().getResource("/resources/OptionsButton.png"));
-			optionsBTN.setIcon(new ImageIcon(optionsImage));
-			optionsBTN.setOpaque(false);
-			optionsBTN.setContentAreaFilled(false);
-			optionsBTN.setBorderPainted(false);
-			optionsBTN.setBorder(null);
-			optionsBTN.setAlignmentX(Component.CENTER_ALIGNMENT);
-			
-			BufferedImage quitImage = ImageIO.read(getClass().getResource("/resources/QuitButton.png"));
-			quitBTN.setIcon(new ImageIcon(quitImage));
-			quitBTN.setOpaque(false);
-			quitBTN.setContentAreaFilled(false);
-			quitBTN.setBorderPainted(false);
-			quitBTN.setBorder(null);
-			quitBTN.setAlignmentX(Component.CENTER_ALIGNMENT);
-		}
-		catch (Exception e)
-		{
-			System.out.println("Can't find font in menu");
-		}
+		CreateFont zombieFont = new CreateFont("/resources/Zombie_Holocaust.ttf", 120);
+
+		title.setFont(zombieFont.getFont());
+		title.setForeground(new Color(100, 12, 0));
 		
-		menu.add(Box.createRigidArea(new Dimension(0, 80))); // Spacing
+		// Adds compenents to panel
+		menu.add(Box.createRigidArea(new Dimension(0, 40))); // Spacing
 		menu.add(title);
-		menu.add(Box.createRigidArea(new Dimension(0, 130)));
+		menu.add(Box.createRigidArea(new Dimension(0, 40)));
 		menu.add(startBTN);
 		menu.add(optionsBTN);
 		menu.add(quitBTN);
 		
+		
+		// Adds actionListeners
 		quitBTN.addActionListener(new Quit());
 		
+		// Adds panel to frame
 		add(menu);
 		
 	}
 	
-	public void createNorth()
-	{
-		JPanel north = new JPanel();
-		north.setLayout(new FlowLayout());
-		north.setBackground(Color.DARK_GRAY);
-		add(north, BorderLayout.NORTH);
-		
-		JLabel title = new JLabel("Undead Defense");
-		title.setFont(new Font("Courier", Font.BOLD, 26));
-		title.setForeground(Color.WHITE);
-		north.add(title);
-	}
-	
-	public void createCenter()
-	{	
-		JPanel center = new JPanel();
-		center.setLayout(new GridLayout(15,17));
-		add(center, BorderLayout.CENTER);
-		
-		board = new int[15][17];
-		buttons = new JButton[15][17];
-		pickedTower = new boolean[15][17];
-		towers = new Tower[15][17];
-		
-		// Creates Map
-		for(int r = 0; r < buttons.length; r++)
-		{	
-			for(int c = 0; c < buttons[0].length; c++)
-	        {
-				if (c < 15) // Map
-	        	{
-					try
-					{
-		        		board[r][c] = 0;
-						buttons[r][c] = new JButton();
-						Image grass = ImageIO.read(getClass().getResource("/resources/Grass.png"));
-						buttons[r][c].setIcon(new ImageIcon(grass));
-						buttons[r][c].setBackground(new Color(65, 74, 45));
-						buttons[r][c].addActionListener(new PlaceTower(towers, pickedTower, buttons, board, r, c));
-						pickedTower[r][c] = false;
-						towers[r][c] = null;
-						center.add(buttons[r][c]);
-					}
-					catch (Exception e)
-					{
-						System.out.println("Can't find grass image!");
-					}
-	        	}
-	        	else // Tower Panel
-	        	{
-	        		buttons[r][c] = new JButton();
-	        		buttons[r][c].setBackground(Color.WHITE);
-	        		buttons[r][c].addActionListener(new PickTower(buttons, pickedTower, r, c));
-	        		pickedTower[r][c] = false;
-	        		center.add(buttons[r][c]);
-	        	}
-	        }
-		}
-		
-		// Towers
-		try
-		{
-			towers[0][15] = new Skeleton();
-			Icon skeleton = new ImageIcon(towers[0][15].getImage());
-			buttons[0][15].setIcon(skeleton);
-			buttons[0][15].setDisabledIcon(skeleton); // Prevents the icon from going grey when the button is disabled
-		}
-		catch (Exception e)
-		{
-			System.out.println("Can't find tower image!");
-		}
-		
-		// Creates Start Button
-		buttons[14][15].setBorder(null);
-		buttons[14][16].setBorder(null);
-		buttons[14][15].setBackground(null);
-		buttons[14][16].setBackground(null);
-		buttons[14][15].setText("START");
-		buttons[14][16].setText("GAME");
-		buttons[14][15].addActionListener(new StartLevel(buttons, board));
-		buttons[14][16].addActionListener(new StartLevel(buttons, board));
-	}
-	
-	public void createSides()
-	{
-		int buffer = (w-h) / 17; // To make the grids squares since the Grid is 15x17
-		System.out.println(buffer);
-		
-		JPanel west = new JPanel();
-		west.setLayout(new FlowLayout());
-		west.setPreferredSize(new Dimension(((w-h)/2) - buffer, h));
-		add(west, BorderLayout.WEST);
-		
-		JPanel east = new JPanel();
-		east.setLayout(new FlowLayout());
-		east.setPreferredSize(new Dimension(((w-h)/2) - buffer, h));
-		add(east, BorderLayout.EAST);
-	}
-	
-	public void createPath()
-	{
-		int [] pathX = {5,5,5,6,7,8,9,10,11,11,12,12,13,13,13,13,13,13,12,11,10,10,10,9,9,8,7,6,5,4,3,3,2,2,2,1,1,1,1,2,3,4,5,6,7,8,9,9,10,10};
-		int [] pathY = {0,1,2,2,2,2,2,2,2,3,3,4,4,5,6,7,8,9,9,9,9,8,7,7,6,6,6,6,6,6,6,7,7,8,9,9,10,11,12,12,12,12,12,12,12,12,12,13,13,14};
-		
-		int pathCounter = 1;
-		for (int i = 0; i < pathX.length; i++)
-		{
-			try
-			{
-				board[pathX[i]][pathY[i]] = pathCounter;
-				Image path = ImageIO.read(getClass().getResource("/resources/Path.png"));
-				buttons[pathX[i]][pathY[i]].setIcon(new ImageIcon(path));
-				buttons[pathX[i]][pathY[i]].setBackground(new Color(127, 114, 48));
-				buttons[pathX[i]][pathY[i]].setBorder(null);
-				//buttons[pathX[i]][pathY[i]].setEnabled(false);
-				buttons[pathX[i]][pathY[i]].setDisabledIcon(new ImageIcon(path));
-				pathCounter++;
-			}
-			catch (Exception e)
-			{
-				System.out.println("Can't find path image!");
-			}
-		}
-	}
-	
 	public static void main(String[] args)
     {
-		frame = new JFrame("Undead Defense");
+		JFrame frame = new JFrame("Undead Defense");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
-        frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
-        frame.pack();
-        frame.setLocation(0, 0);
+        frame.setSize(frameSize);
+        frame.setLocationRelativeTo(null);
         frame.setContentPane(new GUI());
         frame.setVisible(true);
-        //frame.setUndecorated(true);
-        //frame.setResizable(false);
+        frame.setResizable(false);
     }
+    
 }
