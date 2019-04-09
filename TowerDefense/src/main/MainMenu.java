@@ -3,24 +3,23 @@ package main;
 import java.awt.*;
 import javax.swing.*;
 
-public class GUI extends JPanel
+public class MainMenu extends JPanel
 {
 	public static final long serialVersionUID = 1L;
+	public static JFrame frame;
 	private static Dimension frameSize = new Dimension(1280, 720);
-	
 	public final static int w = 1280;
 	public final static int h = 720;
 	
-	public GUI()
+	public MainMenu()
 	{	
 		setLayout(new BorderLayout());
-		
 		startMenu();
 	}
 	
 	public void startMenu()
 	{	
-		ImagePanel menu = new ImagePanel("/resources/Menu-Small.png");
+		MenuPanel menu = new MenuPanel("/resources/Menu-Small.png");
 		menu.setLayout(new BoxLayout(menu, BoxLayout.Y_AXIS));
 		
 		OutlineLabel title = new OutlineLabel("Undead Defense", true, Color.BLACK);
@@ -36,13 +35,16 @@ public class GUI extends JPanel
 		// Adds compenents to panel
 		menu.add(Box.createRigidArea(new Dimension(0, 40))); // Spacing
 		menu.add(title);
-		menu.add(Box.createRigidArea(new Dimension(0, 40)));
+		menu.add(Box.createRigidArea(new Dimension(0, 70)));
 		menu.add(startBTN);
+		menu.add(Box.createRigidArea(new Dimension(0, 50)));
 		menu.add(optionsBTN);
+		menu.add(Box.createRigidArea(new Dimension(0, 50)));
 		menu.add(quitBTN);
 		
 		
 		// Adds actionListeners
+		startBTN.addActionListener(new Start(frame));
 		quitBTN.addActionListener(new Quit());
 		
 		// Adds panel to frame
@@ -51,16 +53,16 @@ public class GUI extends JPanel
 	}
 	
 	// Main Menu
-	/*
+	
 	public static void main(String[] args)
     {
-		JFrame frame = new JFrame("Undead Defense");
+		frame = new JFrame("Undead Defense");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
         frame.setSize(frameSize);
         frame.setLocationRelativeTo(null);
-        frame.setContentPane(new GUI());
+        frame.setContentPane(new MainMenu());
         frame.setVisible(true);
         frame.setResizable(false);
     }
-    */
+    
 }

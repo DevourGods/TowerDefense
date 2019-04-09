@@ -99,8 +99,8 @@ public class ActionPanel extends JPanel implements ActionListener
 		add(nextLevelBTN);
 
 		skeletonBTN.setBounds(20, 20, 50, 50);
-		playBTN.setBounds(34, 135, 100, 100);
-		pauseBTN.setBounds(184, 135, 100, 100);
+		playBTN.setBounds(10, 135, 150, 100);
+		pauseBTN.setBounds(160, 135, 150, 100);
 		goldLabel.setBounds(95, 210, 400, 100);
 		livesLabel.setBounds(92, 275, 400, 100);
 		clickToPlaceLabel.setBounds(50, 350, 400, 100);

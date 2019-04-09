@@ -19,7 +19,7 @@ public class Main
 	public final static int h = 720;
 	
 	
-	private Main()
+	public Main()
 	{
 		initializeVariables();
 		initializeInterface();
@@ -68,6 +68,12 @@ public class Main
 		mainFrame.setLocationRelativeTo(null);
 		mainFrame.setVisible(true);
 	}
+	
+	public JFrame getFrame()
+	{
+		return mainFrame;
+	}
+	
 	
 	public static void main(String [] args)
 	{

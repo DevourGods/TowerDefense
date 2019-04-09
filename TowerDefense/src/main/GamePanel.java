@@ -10,11 +10,13 @@ public class GamePanel extends JPanel implements Runnable
 {
 	private static final long serialVersionUID = 1L;
 	
+	public static Scanner scan;
+	
 	private BufferedImage grass;
 	private BufferedImage path;
 	private BufferedImage rock;
 	
-	public static Scanner scan;
+	private Skeleton skeleton;
 	
 	public Thread gameLoop;
 	
@@ -27,7 +29,7 @@ public class GamePanel extends JPanel implements Runnable
 	
 	private void initializeGameData()
 	{
-		
+		skeleton = new Skeleton(this, (Graphics2D) this.getGraphics());
 	}
 	
 	@Override
@@ -35,6 +37,9 @@ public class GamePanel extends JPanel implements Runnable
 	{
 		Graphics2D g2 = (Graphics2D) g;
 		buildMap(g2);
+		
+		//skeleton.setGraphics(g2);
+		//skeleton.draw();
 	}
 	
 	private void buildMap(Graphics g)
@@ -88,6 +93,6 @@ public class GamePanel extends JPanel implements Runnable
 	@Override
 	public synchronized void run()
 	{
-		//
+		System.out.println("test");
 	}
 }
