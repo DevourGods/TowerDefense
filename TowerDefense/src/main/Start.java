@@ -18,8 +18,7 @@ public class Start implements ActionListener
 	{	
 		frame.dispose();
 		
-		Main m = new Main();
-		frame = m.getFrame();
-		
+		//Main m = new Main();
+		//frame = m.getFrame();
 	}
 }

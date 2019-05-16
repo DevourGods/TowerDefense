@@ -1,83 +1,70 @@
 package main;
 
-import java.awt.Dimension;
-import java.net.URL;
+import javax.sound.sampled.Clip;
+import javax.swing.*;
+import java.awt.*;
 
-import javax.swing.ImageIcon;
-import javax.swing.JFrame;
-
-public class Main
-{
+public class Main {
+	
 	private JFrame mainFrame;
 	private Dimension frameSize;
-	
 	public static ActionPanel actionPanel;
+	public static SoundPlayer soundPlayer;
 	public static GamePanel gamePanel;
 	public static boolean isPaused = true;
+	public static long clipTime = 0;
+	public static EffectsPlayer effectsPlayer;
 	
-	public final static int w = 1280;
-	public final static int h = 720;
-	
-	
-	public Main()
-	{
+	private Main() {
 		initializeVariables();
 		initializeInterface();
 	}
 	
-	private void initializeVariables()
-	{
-		mainFrame = new JFrame("Undead Defense");
-		frameSize = new Dimension(w, h);
-		
-		actionPanel = new ActionPanel(new Dimension(w/4, h));
-		gamePanel = new GamePanel(new Dimension(w/4*3, h));
+	private void initializeVariables() {
+		mainFrame  = new JFrame("Undead Defense");
+		frameSize = new Dimension(1280, 720);
+		actionPanel = new ActionPanel(new Dimension(320, 720));
+		gamePanel = new GamePanel(new Dimension(960, 720));
+		soundPlayer = new SoundPlayer();
+		effectsPlayer = new EffectsPlayer();
 	}
 	
-	public static void start()
-	{
+	public static void start() {
 		gamePanel.gameLoop = new Thread(gamePanel);
 		gamePanel.gameLoop.start();
 		isPaused = false;
+		
+		soundPlayer.clip.setMicrosecondPosition(clipTime);
+		soundPlayer.clip.loop(Clip.LOOP_CONTINUOUSLY);
 	}
 	
-	public static void pause()
-	{
+	public static void pause() {
 		gamePanel.gameLoop = null;
 		isPaused = true;
+		
+		clipTime = soundPlayer.clip.getMicrosecondPosition();
+		soundPlayer.clip.stop();
 	}
 	
-	private void initializeInterface()
-	{
-		mainFrame = new JFrame("Undead Defense");
-		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
-		mainFrame.setSize(frameSize);
+	private void initializeInterface() {
+		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		mainFrame.setLayout(null);
+		mainFrame.setSize(frameSize);
 		mainFrame.setResizable(false);
-		
-		URL iconURL = getClass().getResource("/resources/Icon.png"); // JFrame icon
-		ImageIcon icon = new ImageIcon(iconURL);
-		mainFrame.setIconImage(icon.getImage());
+		mainFrame.setFocusable(true);
 		
 		mainFrame.add(actionPanel);
-		actionPanel.setBounds(0,0, w/4, h);
+		actionPanel.setBounds(0,0,320,720);
 		
 		mainFrame.add(gamePanel);
-		gamePanel.setBounds(w/4, 0, w/4*3, h);
+		gamePanel.setBounds(320,0,960,720);
 		
 		mainFrame.setLocationRelativeTo(null);
 		mainFrame.setVisible(true);
 	}
 	
-	public JFrame getFrame()
-	{
-		return mainFrame;
-	}
-	
-	
-	public static void main(String [] args)
-	{
+	public static void main(String[] args) {
 		new Main();
 	}
-	
+
 }

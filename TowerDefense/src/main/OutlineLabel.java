@@ -5,7 +5,7 @@ import java.awt.Component;
 import java.awt.Graphics;
 import javax.swing.JLabel;
 
-public class OutlineLabel extends JLabel 
+public class OutlineLabel extends JLabel // Custom label class, created to make the title of the main menu easier
 {
 	private static final long serialVersionUID = 1L;
 	private Color outlineColor;

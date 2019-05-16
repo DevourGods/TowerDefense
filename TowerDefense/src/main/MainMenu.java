@@ -23,9 +23,9 @@ public class MainMenu extends JPanel
 		menu.setLayout(new BoxLayout(menu, BoxLayout.Y_AXIS));
 		
 		OutlineLabel title = new OutlineLabel("Undead Defense", true, Color.BLACK);
-		ImageButton startBTN = new ImageButton("/resources/StartButton.png", true, 0.7);
-		ImageButton optionsBTN = new ImageButton("/resources/OptionsButton.png", true, 0.7);
-		ImageButton quitBTN = new ImageButton("/resources/QuitButton.png", true, 0.7);
+		ImageButton startBTN = new ImageButton("/resources/StartButton.png", true, 0.7, false);
+		ImageButton optionsBTN = new ImageButton("/resources/OptionsButton.png", true, 0.7, false);
+		ImageButton quitBTN = new ImageButton("/resources/QuitButton.png", true, 0.7, false);
 		
 		CreateFont zombieFont = new CreateFont("/resources/Zombie_Holocaust.ttf", 120);
 
@@ -53,7 +53,7 @@ public class MainMenu extends JPanel
 	}
 	
 	// Main Menu
-	
+	/*
 	public static void main(String[] args)
     {
 		frame = new JFrame("Undead Defense");
@@ -64,5 +64,5 @@ public class MainMenu extends JPanel
         frame.setVisible(true);
         frame.setResizable(false);
     }
-    
+    */
 }

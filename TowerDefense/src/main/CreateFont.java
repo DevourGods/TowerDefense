@@ -3,13 +3,12 @@ package main;
 import java.awt.Font;
 import java.awt.GraphicsEnvironment;
 
-public class CreateFont 
+public class CreateFont // Imports a new font
 {
 	public Font font;
 	
 	public CreateFont(String name, int size)
-	{
-		
+	{	
 		try
 		{
 			font = Font.createFont(Font.TRUETYPE_FONT, getClass().getResource(name).openStream());
@@ -19,7 +18,7 @@ public class CreateFont
 		}
 		catch (Exception e)
 		{
-			System.out.println("Can't find font in menu");
+			System.out.println("Font not found!");
 		}
 	}
 	
