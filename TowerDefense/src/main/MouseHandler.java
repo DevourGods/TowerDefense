@@ -39,7 +39,7 @@ public class MouseHandler extends MouseAdapter {
 	@Override
 	public void mouseClicked(MouseEvent e)
 	{
-		System.out.println(e.getX() + "," + e.getY()); // Prints out the coordinates of the point that was clicked
+		//System.out.println(e.getX() + "," + e.getY()); // Prints out the coordinates of the point that was clicked
 	}
 	
 	@Override

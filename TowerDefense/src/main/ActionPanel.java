@@ -168,9 +168,13 @@ public class ActionPanel extends JPanel implements ActionListener {
 	
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == playButton) {
+			pauseButton.setEnabled(true);
+			playButton.setEnabled(false);
 			Main.start();
 		}
 		if(e.getSource() == pauseButton) {
+			playButton.setEnabled(true);
+			pauseButton.setEnabled(false);
 			Main.pause();
 		}
 		if(e.getSource() == skeletonTower) {
@@ -186,7 +190,7 @@ public class ActionPanel extends JPanel implements ActionListener {
 			Main.start();
 			nextLevelStarted = false;
 			pauseButton.setEnabled(true);
-			playButton.setEnabled(true);
+			// playButton.setEnabled(true); // No need for both buttons to be enabled
 			if(gameStarted) {
 				nextLevelStarted = true;
 			}
