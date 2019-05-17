@@ -5,12 +5,12 @@ import java.awt.Rectangle;
 
 import javax.swing.JPanel;
 
-public class Tower extends AnimatedSprite {
+public class SkeletonTower extends AnimatedSprite {
 	
 	protected int range = 100;
 	protected Rectangle fireBounds;
 
-	public Tower(JPanel _frame, Graphics2D _g2, int x, int y) {
+	public SkeletonTower(JPanel _frame, Graphics2D _g2, int x, int y) {
 		super(_frame, _g2);
 		this.position.x = x;
 		this.position.y = y;

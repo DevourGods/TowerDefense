@@ -19,7 +19,7 @@ public class ActionPanel extends JPanel implements ActionListener {
 	private int towerSelection = 1;
 	private OutlineLabel towerSelectionLabel;
 	private ImageButton skeletonTower;
-	private JButton towerTwoButton;
+	private ImageButton mageTower;
 	private ImageButton playButton;
 	private ImageButton pauseButton;
 	private OutlineLabel gold;
@@ -43,8 +43,8 @@ public class ActionPanel extends JPanel implements ActionListener {
 		skeletonTower = new ImageButton("/resources/Skeleton.png", false, 1, true);
 		skeletonTower.addActionListener(this);
 		
-		towerTwoButton = new JButton();
-		towerTwoButton.addActionListener(this);
+		mageTower = new ImageButton("/resources/Mage.png", false, 1, false);
+		mageTower.addActionListener(this);
 		
 		playButton = new ImageButton("/resources/PlayButton.png", true, 0.5, false);
 		playButton.addActionListener(this);
@@ -88,12 +88,12 @@ public class ActionPanel extends JPanel implements ActionListener {
 	private void initializePanel() {
 		this.setLayout(null);
 		this.add(skeletonTower);
-		this.add(towerTwoButton);
+		this.add(mageTower);
 		this.add(playButton);
 		this.add(pauseButton);
 		
 		skeletonTower.setBounds(20,20,50,50);
-		towerTwoButton.setBounds(74,15,48,48);
+		mageTower.setBounds(80,20,50,50);
 		playButton.setBounds(10,135,150,100);
 		pauseButton.setBounds(160,135,150,100);
 		this.add(gold);
@@ -126,7 +126,7 @@ public class ActionPanel extends JPanel implements ActionListener {
 		gold.setText("Gold: "+goldLeft);
 	}
 	
-	public void buyTowerTwo() {
+	public void buyMageTower() {
 		goldLeft -= 100;
 		gold.setText("Gold: "+goldLeft);
 	}
@@ -156,7 +156,7 @@ public class ActionPanel extends JPanel implements ActionListener {
 	
 	public void incrementWave() {
 		wavesCompleted +=1;
-		waves.setText("Waves Done: "+wavesCompleted+"/5"); // wavesLabel.setText("Wave: " + waves);
+		waves.setText("Wave: " + wavesCompleted);
 	}
 	
 	@Override
@@ -164,6 +164,11 @@ public class ActionPanel extends JPanel implements ActionListener {
 		Graphics2D g2 = (Graphics2D) g;
 		g2.setColor(Color.BLUE);
 		g2.drawImage(backgroundImage, 0, 0, null);
+	}
+	
+	public void clearBorders() {
+		skeletonTower.setBorder(false);
+		mageTower.setBorder(false);
 	}
 	
 	public void actionPerformed(ActionEvent e) {
@@ -180,10 +185,14 @@ public class ActionPanel extends JPanel implements ActionListener {
 		if(e.getSource() == skeletonTower) {
 			towerSelection = 1;
 			towerSelectionLabel.setText("SKELETON");
+			clearBorders();
+			skeletonTower.setBorder(true);
 		}
-		if(e.getSource() == towerTwoButton) {
+		if(e.getSource() == mageTower) {
 			towerSelection = 2;
-			towerSelectionLabel.setText("ADVANCED T.");
+			towerSelectionLabel.setText("MAGE");
+			clearBorders();
+			mageTower.setBorder(true);
 		}
 		if(e.getSource() == nextLevelButton) {
 			Main.clipTime = Main.soundPlayer.clip.getMicrosecondPosition();

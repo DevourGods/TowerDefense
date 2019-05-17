@@ -2,16 +2,10 @@ package main;
 
 import javax.swing.*;
 import java.awt.*;
-import java.io.File;
-import java.io.InputStream;
-
 import javax.imageio.*;
-
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.Scanner;
 import java.util.concurrent.CopyOnWriteArrayList;
-import java.awt.geom.Area;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.*;
 import java.io.IOException;
@@ -32,14 +26,15 @@ public class GamePanel extends JPanel implements Runnable{
 	private int xCoordinate = 0;
 	private int yCoordinate = 0;
 	private String row = "";
+	public int startX;
 	
 	private Monster monster1;
 	private Monster2 monster2;
 	private Monster3 monster3;
 	private Monster4 monster4;
 	private Monster5 monster5;
-	private Tower tower1;
-	private AdvancedTower tower2;
+	private SkeletonTower tower1;
+	private MageTower tower2;
 	private Level levelOne;
 	private Level levelTwo;
 	private Level levelThree;
@@ -55,8 +50,8 @@ public class GamePanel extends JPanel implements Runnable{
 	public MouseHandler mouseHandler = new MouseHandler(this.getGraphics());
 	public ArrayList<Point> towerCoordinates = new ArrayList<Point>();
 	public ArrayList<Point> towerTwoCoordinates = new ArrayList<Point>();
-	public static CopyOnWriteArrayList<Tower> towerOnes = new CopyOnWriteArrayList<Tower>();
-	public static CopyOnWriteArrayList<Tower> towerTwos = new CopyOnWriteArrayList<Tower>();
+	public static CopyOnWriteArrayList<SkeletonTower> towerOnes = new CopyOnWriteArrayList<SkeletonTower>();
+	public static CopyOnWriteArrayList<SkeletonTower> towerTwos = new CopyOnWriteArrayList<SkeletonTower>();
 	private CopyOnWriteArrayList<Projectile> towerOneProjectiles = new CopyOnWriteArrayList<Projectile>();
 	private CopyOnWriteArrayList<ProjectileTwo> towerTwoProjectiles = new CopyOnWriteArrayList<ProjectileTwo>();
 	private Projectile proj;
@@ -78,14 +73,14 @@ public class GamePanel extends JPanel implements Runnable{
 		monster3 = new Monster3(this, (Graphics2D) this.getGraphics());
 		monster4 = new Monster4(this, (Graphics2D) this.getGraphics());
 		monster5 = new Monster5(this, (Graphics2D) this.getGraphics()); 
-		tower1 = new Tower(this, (Graphics2D) this.getGraphics(),0,0);
-		tower2 = new AdvancedTower(this, (Graphics2D) this.getGraphics(), 0, 0);
+		tower1 = new SkeletonTower(this, (Graphics2D) this.getGraphics(), 0, 0);
+		tower2 = new MageTower(this, (Graphics2D) this.getGraphics(), 0, 0);
 		
-		levelOne = new Level(25, monster1, 100, 0);
-		levelTwo = new Level(50, monster2, 500, 1);
-		levelThree = new Level(50, monster3, 1500, 2);
-		levelFour = new Level(40, monster4, 4500, 3);
-		levelFive = new Level(50, monster5, 8000, 4);
+		levelOne = new Level(1, monster1, 100, 0); // Amount, EnemyType, Health, Type
+		levelTwo = new Level(1, monster2, 100, 1);
+		levelThree = new Level(1, monster3, 100, 2);
+		levelFour = new Level(1, monster4, 100, 3);
+		levelFive = new Level(1, monster5, 100, 4);
 	}
 	
 	@Override
@@ -203,14 +198,14 @@ public class GamePanel extends JPanel implements Runnable{
 			timesLooped++;
 			
 			if(timesLooped%25 == 0 && levelOne.goneBy < levelOne.getEnemyNumber()) {
-				levelOne.getEnemyArray()[levelOne.goneBy].position = new Point(50,0); // Starting point of where the monsters spawn
+				levelOne.getEnemyArray()[levelOne.goneBy].position = new Point(40, 0); // Starting point of where the monsters spawn
 				levelOne.getEnemyArray()[levelOne.goneBy].velocity = new Point(0,1); // Speed of the mosnters
 				levelOne.goneBy++;
 			}			
 			
 			// Iterate through all the towers to see if they can fire at something
 			if(timesLooped%100 == 0) {
-				for(Tower tower: towerOnes) {
+				for(SkeletonTower tower: towerOnes) {
 					for(int i = 0; i < levelOne.getEnemyNumber(); i++) {
 						if(tower.getFireBounds().intersects(levelOne.enemies[i].getBounds())) {
 							
@@ -221,13 +216,13 @@ public class GamePanel extends JPanel implements Runnable{
 							towerOneProjectiles.add(proj);
 							Point tempCoordinate = tower.position;
 							towerOnes.remove(tower);
-							Tower newTower = new Tower(this, (Graphics2D) this.getGraphics(), tempCoordinate.x, tempCoordinate.y);
+							SkeletonTower newTower = new SkeletonTower(this, (Graphics2D) this.getGraphics(), tempCoordinate.x, tempCoordinate.y);
 							towerOnes.add(newTower);
 							break;
 						}
 					}
 				}
-				for(Tower t2: towerTwos) {
+				for(SkeletonTower t2: towerTwos) {
 					for(int i = 0; i < levelOne.getEnemyNumber(); i++) {
 						if(t2.getFireBounds().intersects(levelOne.enemies[i].getBounds())) {
 							
@@ -238,7 +233,7 @@ public class GamePanel extends JPanel implements Runnable{
 							towerTwoProjectiles.add(proj2);
 							Point tempCoordinate = t2.position;
 							towerTwos.remove(t2);
-							AdvancedTower newTower = new AdvancedTower(this, (Graphics2D) this.getGraphics(), tempCoordinate.x, tempCoordinate.y);
+							MageTower newTower = new MageTower(this, (Graphics2D) this.getGraphics(), tempCoordinate.x, tempCoordinate.y);
 							towerTwos.add(newTower);
 							break;
 						}
@@ -258,10 +253,11 @@ public class GamePanel extends JPanel implements Runnable{
 						if(levelOne.enemies[ctr].health <=0) {
 							levelOne.enemies[ctr].alive = false;
 							levelOne.enemies[ctr].position = new Point(-200,-200);
+							
 							Main.actionPanel.addGold(5);
 							if(level == 3)	Main.actionPanel.addGold(15);
-							if(level ==4)	Main.actionPanel.addGold(25);
-							if(level ==5) 	Main.actionPanel.addGold(35);
+							if(level == 4)	Main.actionPanel.addGold(25);
+							if(level == 5) 	Main.actionPanel.addGold(35);
 							Main.effectsPlayer = new EffectsPlayer();
 							Main.effectsPlayer.clip.loop(0);
 						}

@@ -14,21 +14,28 @@ public class Monster extends AnimatedSprite {
 	public final static int STATE_WALK_BOTTOM = 3;
 	public int state;
 	
-	private Point[] turnRight = {new Point(50, 194), new Point(242, 50), new Point(146, 578), new Point(290, 482), new Point(434, 578)};
-	private Point[] turnLeft = {new Point(626, 194), new Point(434, 338)};
-	private Point[] turnTop = {new Point(242, 194), new Point(290, 578)};
-	private Point[] turnBottom = {new Point(626, 50), new Point(434, 194), new Point(146, 338), new Point(434, 482)};
-	private Point[] death = {new Point(720,578)};
+	public final static int x = -10;
+	public final static int y = -30;
+	
+	private Point[] turnRight = {new Point(50+x, 194+y), new Point(242+x, 50+y), new Point(146+x, 578+y), new Point(290+x, 482+y), new Point(434+x, 578+y)};
+	private Point[] turnLeft = {new Point(626+x, 194+y), new Point(434+x, 338+y)};
+	private Point[] turnTop = {new Point(242+x, 194+y), new Point(290+x, 578+y)};
+	private Point[] turnBottom = {new Point(626+x, 50+y), new Point(434+x, 194+y), new Point(146+x, 338+y), new Point(434+x, 482+y)};
+	private Point[] death = {new Point(720+x,578+y)};
 	
 
 	public Monster(JPanel _frame, Graphics2D _g2) {
 		super(_frame, _g2);
-		load("/resources/monster1.png", 3, 12, 47, 35);
+		load("/resources/MonsterGirl.png", 3, 12, 64, 64);
 		state = STATE_WALK_BOTTOM;
 	}
 	
 	public void setState(int state) {
 		this.state = state;
+	}
+	
+	public int getX(){
+		return x;
 	}
 	
 	@Override

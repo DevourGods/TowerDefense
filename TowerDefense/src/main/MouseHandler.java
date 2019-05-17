@@ -65,7 +65,7 @@ public class MouseHandler extends MouseAdapter {
 		if(checkBuildable(e.getPoint())) { // Checks if point is buildable
 			int roundedX = (e.getX()/48)*48;
 			int roundedY = (e.getY()/48)*48;
-			Tower tow = new Tower(Main.gamePanel, (Graphics2D)Main.gamePanel.getGraphics(), roundedX, roundedY-10);
+			SkeletonTower tow = new SkeletonTower(Main.gamePanel, (Graphics2D)Main.gamePanel.getGraphics(), roundedX, roundedY-10);
 			towerExists = false;
 			
 			for(Point p : Main.gamePanel.towerCoordinates) {
@@ -86,7 +86,7 @@ public class MouseHandler extends MouseAdapter {
 			}
 			if(!towerExists && Main.actionPanel.goldLeft >=100 && Main.actionPanel.getTowerSelection() == 2) {
 				Main.gamePanel.towerTwoCoordinates.add(new Point(roundedX, roundedY-10));
-				Main.actionPanel.buyTowerTwo();
+				Main.actionPanel.buyMageTower();
 				if(Main.actionPanel.getTowerSelection() == 1) {
 					Main.gamePanel.towerOnes.add(tow);
 				}
