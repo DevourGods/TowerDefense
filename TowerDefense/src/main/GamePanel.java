@@ -26,20 +26,22 @@ public class GamePanel extends JPanel implements Runnable{
 	private int xCoordinate = 0;
 	private int yCoordinate = 0;
 	private String row = "";
-	public int startX;
+	private CreateFont bf2;
 	
-	private Monster monster1;
-	private Monster2 monster2;
-	private Monster3 monster3;
-	private Monster4 monster4;
-	private Monster5 monster5;
-	private SkeletonTower tower1;
-	private MageTower tower2;
+	private MonsterBee monsterBee;
+	private MonsterWerebat monsterWerebat;
+	private MonsterSiren monsterSiren;
+	private MonsterHarpy monsterHarpy;
+	private MonsterDarkHarpy monsterDarkHarpy;
+	private MonsterBoss monsterBoss;
+	private SkeletonTower skeleton;
+	private MageTower mage;
 	private Level levelOne;
 	private Level levelTwo;
 	private Level levelThree;
 	private Level levelFour;
 	private Level levelFive;
+	private Level levelSix;
 	private int timesLooped = 0;
 	boolean loaded = false;
 	
@@ -68,19 +70,23 @@ public class GamePanel extends JPanel implements Runnable{
 	}
 	
 	private void initializeGameData() {
-		monster1 = new Monster(this, (Graphics2D) this.getGraphics());
-		monster2 = new Monster2(this, (Graphics2D) this.getGraphics());
-		monster3 = new Monster3(this, (Graphics2D) this.getGraphics());
-		monster4 = new Monster4(this, (Graphics2D) this.getGraphics());
-		monster5 = new Monster5(this, (Graphics2D) this.getGraphics()); 
-		tower1 = new SkeletonTower(this, (Graphics2D) this.getGraphics(), 0, 0);
-		tower2 = new MageTower(this, (Graphics2D) this.getGraphics(), 0, 0);
+		bf2 = new CreateFont("/resources/BreatheFire2.ttf", 40);
 		
-		levelOne = new Level(1, monster1, 100, 0); // Amount, EnemyType, Health, Type
-		levelTwo = new Level(1, monster2, 100, 1);
-		levelThree = new Level(1, monster3, 100, 2);
-		levelFour = new Level(1, monster4, 100, 3);
-		levelFive = new Level(1, monster5, 100, 4);
+		monsterBee = new MonsterBee(this, (Graphics2D) this.getGraphics());
+		monsterWerebat = new MonsterWerebat(this, (Graphics2D) this.getGraphics());
+		monsterSiren = new MonsterSiren(this, (Graphics2D) this.getGraphics());
+		monsterHarpy = new MonsterHarpy(this, (Graphics2D) this.getGraphics());
+		monsterDarkHarpy = new MonsterDarkHarpy(this, (Graphics2D) this.getGraphics()); 
+		monsterBoss = new MonsterBoss(this, (Graphics2D) this.getGraphics());
+		skeleton = new SkeletonTower(this, (Graphics2D) this.getGraphics(), 0, 0);
+		mage = new MageTower(this, (Graphics2D) this.getGraphics(), 0, 0);
+		
+		levelOne = new Level(1, monsterBee, 100, 0); // Amount, EnemyType, Health, Type
+		levelTwo = new Level(1, monsterWerebat, 100, 1);
+		levelThree = new Level(1, monsterSiren, 100, 2);
+		levelFour = new Level(1, monsterHarpy, 100, 3);
+		levelFive = new Level(1, monsterDarkHarpy, 100, 4);
+		levelSix = new Level(1, monsterBoss, 100, 5);
 	}
 	
 	@Override
@@ -96,15 +102,15 @@ public class GamePanel extends JPanel implements Runnable{
 		// Drawing all the towers
 		for(Point p : towerCoordinates) {
 			g2.setColor(Color.BLUE);
-			tower1.setGraphics(g2);
-			tower1.position = p;
-			tower1.draw();
+			skeleton.setGraphics(g2);
+			skeleton.position = p;
+			skeleton.draw();
 		}
 		for(Point p : towerTwoCoordinates) {
 			g2.setColor(Color.BLUE);
-			tower2.setGraphics(g2);
-			tower2.position = p;
-			tower2.draw();
+			mage.setGraphics(g2);
+			mage.position = p;
+			mage.draw();
 		}
 		
 		// Drawing all the projectiles
@@ -119,28 +125,28 @@ public class GamePanel extends JPanel implements Runnable{
 		
 		// If game over
 		if(gameOver) {
-			g2.setFont(new Font("Times New Roman", Font.BOLD, 72));
-			g2.setColor(Color.RED);
+			g2.setFont(bf2.getFont());
+			g2.setColor(new Color(100, 12, 0));
 			String go = "Game Over";
 			Rectangle2D bounds = g2.getFontMetrics().getStringBounds(go, g2);
-			g2.drawString(go, (int) ((this.getWidth() - bounds.getWidth())/2), 200);
+			g2.drawString(go, (int) ((this.getWidth() - bounds.getWidth())/2 - 100), 200);
 		}
 		// If game won
 		if(gameWon) {
-			g2.setFont(new Font("Times New Roman", Font.BOLD, 72));
+			g2.setFont(bf2.getFont());
 			g2.setColor(Color.GREEN);
 			String go = "You Win!";
 			Rectangle2D bounds = g2.getFontMetrics().getStringBounds(go, g2);
-			g2.drawString(go, (int) ((this.getWidth() - bounds.getWidth())/2), 200);
+			g2.drawString(go, (int) ((this.getWidth() - bounds.getWidth())/2 - 100), 200);
 		}
 		
 		// If between levels
 		if(nextLevel) {
-			g2.setFont(new Font("Times New Roman", Font.BOLD, 24));
-			g2.setColor(Color.BLUE);
+			g2.setFont(bf2.getFont());
+			g2.setColor(new Color(100, 12, 0));
 			String go = "Level Cleared. Get ready for next level.";
 			Rectangle2D bounds = g2.getFontMetrics().getStringBounds(go, g2);
-			g2.drawString(go, (int) ((this.getWidth() - bounds.getWidth())/2), 55);
+			g2.drawString(go, (int) ((this.getWidth() - bounds.getWidth())/2 - 100), 85);
 		}
 
 	}
@@ -181,9 +187,8 @@ public class GamePanel extends JPanel implements Runnable{
 		Point v = new Point();
 		v.x = (p2.x - p1.x)/20;
 		v.y = (p2.y - p1.y)/20;
-		if(v.x == 0)	v.x = 1;
-		if(v.y == 0)	v.y = 1;
-		//System.out.printf("%d,%d // %d%n", v.x, v.y, towerOneProjectiles.size());
+		if(v.x == 0)	{v.x = 1;}
+		if(v.y == 0)	{v.y = 1;}
 		return v;
 	}
 	
@@ -278,9 +283,9 @@ public class GamePanel extends JPanel implements Runnable{
 							Main.actionPanel.addGold(5);
 							
 							// Add more gold on higher levels
-							if(level==3)	Main.actionPanel.addGold(15);
-							if(level ==4)	Main.actionPanel.addGold(25);
-							if(level ==5) 	Main.actionPanel.addGold(35);
+							if(level == 3)	Main.actionPanel.addGold(15);
+							if(level == 4)	Main.actionPanel.addGold(25);
+							if(level == 5) 	Main.actionPanel.addGold(35);
 							Main.effectsPlayer = new EffectsPlayer();
 							Main.effectsPlayer.clip.loop(0);
 						}
@@ -295,11 +300,13 @@ public class GamePanel extends JPanel implements Runnable{
 					Main.actionPanel.loseLife();
 				}
 			}
-			
+			 	
 			// Checks if all enemies from current level are dead
 			levelDone = true;
 			for(AnimatedSprite animS : levelOne.enemies) {
-				if(animS.alive == true) 	levelDone = false;
+				if(animS.alive == true) {
+					levelDone = false;
+				}
 			}
 			
 			if(levelDone) {
@@ -308,7 +315,7 @@ public class GamePanel extends JPanel implements Runnable{
 				if(!incremented) {
 					Main.actionPanel.incrementWave();
 					incremented = true;
-					if(Main.actionPanel.wavesCompleted == 5) {
+					if(Main.actionPanel.wavesCompleted == 6) {
 						nextLevel = false;
 						gameWon = true;
 						repaint();
@@ -323,6 +330,7 @@ public class GamePanel extends JPanel implements Runnable{
 					if(level == 2) levelOne = levelThree;
 					if(level == 3) levelOne = levelFour;
 					if(level == 4) levelOne = levelFive;
+					if(level == 5) levelOne = levelSix;
 					level++;
 					nextLevel = false;
 					repaint();

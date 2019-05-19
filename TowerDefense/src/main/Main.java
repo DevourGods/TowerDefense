@@ -9,7 +9,7 @@ public class Main {
 	private JFrame mainFrame;
 	private Dimension frameSize;
 	public static ActionPanel actionPanel;
-	public static SoundPlayer soundPlayer;
+	public static MusicPlayer soundPlayer;
 	public static GamePanel gamePanel;
 	public static boolean isPaused = true;
 	public static long clipTime = 0;
@@ -25,7 +25,7 @@ public class Main {
 		frameSize = new Dimension(1280, 720);
 		actionPanel = new ActionPanel(new Dimension(320, 720));
 		gamePanel = new GamePanel(new Dimension(960, 720));
-		soundPlayer = new SoundPlayer();
+		soundPlayer = new MusicPlayer();
 		effectsPlayer = new EffectsPlayer();
 	}
 	

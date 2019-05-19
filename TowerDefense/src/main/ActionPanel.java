@@ -98,16 +98,16 @@ public class ActionPanel extends JPanel implements ActionListener {
 		pauseButton.setBounds(160,135,150,100);
 		this.add(gold);
 		this.add(lives);
-		gold.setBounds(95,210,400,100);
-		lives.setBounds(92,275,400,100);
+		gold.setBounds((int)(320 - gold.getPreferredSize().getWidth()) / 2,210,400,100);
+		lives.setBounds((int)(320 - lives.getPreferredSize().getWidth()) / 2,275,400,100);
 		this.add(towerSel);
 		this.add(towerSelectionLabel);
-		towerSel.setBounds(50,350,400,100);
-		towerSelectionLabel.setBounds(85,400,400,100);
+		towerSel.setBounds((int)(320 - towerSel.getPreferredSize().getWidth()) / 2,350,400,100);
+		towerSelectionLabel.setBounds((int)(320 - towerSelectionLabel.getPreferredSize().getWidth()) / 2,400,400,100);
 		this.add(nextLevelButton);
-		nextLevelButton.setBounds(83,560,150,100);
+		nextLevelButton.setBounds((int)(320 - nextLevelButton.getPreferredSize().getWidth()) / 2,560,150,100);
 		add(waves);
-		waves.setBounds(95,475,400,100);
+		waves.setBounds((int)(320 - waves.getPreferredSize().getWidth()) / 2,475,400,100);
 	}
 	
 	public void loseLife() {
@@ -134,6 +134,7 @@ public class ActionPanel extends JPanel implements ActionListener {
 	public void addGold(int amount) {
 		goldLeft += amount;
 		gold.setText("Gold: "+goldLeft);
+		gold.setBounds((int)(320 - gold.getPreferredSize().getWidth()) / 2,210,400,100);
 	}
 	
 	public int getTowerSelection() {
@@ -157,6 +158,7 @@ public class ActionPanel extends JPanel implements ActionListener {
 	public void incrementWave() {
 		wavesCompleted +=1;
 		waves.setText("Wave: " + wavesCompleted);
+		waves.setBounds((int)(320 - waves.getPreferredSize().getWidth()) / 2,475,400,100);
 	}
 	
 	@Override
@@ -187,19 +189,20 @@ public class ActionPanel extends JPanel implements ActionListener {
 			towerSelectionLabel.setText("SKELETON");
 			clearBorders();
 			skeletonTower.setBorder(true);
+			towerSelectionLabel.setBounds((int)(320 - towerSelectionLabel.getPreferredSize().getWidth()) / 2,400,400,100);
 		}
 		if(e.getSource() == mageTower) {
 			towerSelection = 2;
 			towerSelectionLabel.setText("MAGE");
 			clearBorders();
 			mageTower.setBorder(true);
+			towerSelectionLabel.setBounds((int)(320 - towerSelectionLabel.getPreferredSize().getWidth()) / 2,400,400,100);
 		}
 		if(e.getSource() == nextLevelButton) {
 			Main.clipTime = Main.soundPlayer.clip.getMicrosecondPosition();
 			Main.start();
 			nextLevelStarted = false;
 			pauseButton.setEnabled(true);
-			// playButton.setEnabled(true); // No need for both buttons to be enabled
 			if(gameStarted) {
 				nextLevelStarted = true;
 			}
