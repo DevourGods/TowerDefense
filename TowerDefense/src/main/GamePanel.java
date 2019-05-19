@@ -36,6 +36,7 @@ public class GamePanel extends JPanel implements Runnable{
 	private MonsterBoss monsterBoss;
 	private SkeletonTower skeleton;
 	private MageTower mage;
+	private OrcTower orc;
 	private Level levelOne;
 	private Level levelTwo;
 	private Level levelThree;
@@ -50,10 +51,13 @@ public class GamePanel extends JPanel implements Runnable{
 	private Projectile projectile;
 	
 	public MouseHandler mouseHandler = new MouseHandler(this.getGraphics());
-	public ArrayList<Point> towerCoordinates = new ArrayList<Point>();
-	public ArrayList<Point> towerTwoCoordinates = new ArrayList<Point>();
-	public static CopyOnWriteArrayList<SkeletonTower> towerOnes = new CopyOnWriteArrayList<SkeletonTower>();
-	public static CopyOnWriteArrayList<SkeletonTower> towerTwos = new CopyOnWriteArrayList<SkeletonTower>();
+	
+	public ArrayList<Point> skeletonCoordinates = new ArrayList<Point>();
+	public ArrayList<Point> mageCoordinates = new ArrayList<Point>();
+	public ArrayList<Point> orcCoordinates = new ArrayList<Point>();
+	public static CopyOnWriteArrayList<SkeletonTower> skeletonCopy = new CopyOnWriteArrayList<SkeletonTower>();
+	public static CopyOnWriteArrayList<SkeletonTower> mageCopy = new CopyOnWriteArrayList<SkeletonTower>();
+	public static CopyOnWriteArrayList<SkeletonTower> orcCopy = new CopyOnWriteArrayList<SkeletonTower>();
 	private CopyOnWriteArrayList<Projectile> towerOneProjectiles = new CopyOnWriteArrayList<Projectile>();
 	private CopyOnWriteArrayList<ProjectileTwo> towerTwoProjectiles = new CopyOnWriteArrayList<ProjectileTwo>();
 	private Projectile proj;
@@ -80,13 +84,14 @@ public class GamePanel extends JPanel implements Runnable{
 		monsterBoss = new MonsterBoss(this, (Graphics2D) this.getGraphics());
 		skeleton = new SkeletonTower(this, (Graphics2D) this.getGraphics(), 0, 0);
 		mage = new MageTower(this, (Graphics2D) this.getGraphics(), 0, 0);
+		orc = new OrcTower(this, (Graphics2D) this.getGraphics(), 0, 0);
 		
-		levelOne = new Level(1, monsterBee, 100, 0); // Amount, EnemyType, Health, Type
-		levelTwo = new Level(1, monsterWerebat, 100, 1);
-		levelThree = new Level(1, monsterSiren, 100, 2);
-		levelFour = new Level(1, monsterHarpy, 100, 3);
-		levelFive = new Level(1, monsterDarkHarpy, 100, 4);
-		levelSix = new Level(1, monsterBoss, 100, 5);
+		levelOne = new Level(25, monsterBee, 100, 0); // Amount, EnemyType, Health, Type
+		levelTwo = new Level(50, monsterWerebat, 200, 1);
+		levelThree = new Level(50, monsterSiren, 350, 2);
+		levelFour = new Level(50, monsterHarpy, 500, 3);
+		levelFive = new Level(75, monsterDarkHarpy, 700, 4);
+		levelSix = new Level(100, monsterBoss, 1000, 5);
 	}
 	
 	@Override
@@ -100,17 +105,23 @@ public class GamePanel extends JPanel implements Runnable{
 			m.draw();
 		}
 		// Drawing all the towers
-		for(Point p : towerCoordinates) {
+		for(Point p : skeletonCoordinates) {
 			g2.setColor(Color.BLUE);
 			skeleton.setGraphics(g2);
 			skeleton.position = p;
 			skeleton.draw();
 		}
-		for(Point p : towerTwoCoordinates) {
+		for(Point p : mageCoordinates) {
 			g2.setColor(Color.BLUE);
 			mage.setGraphics(g2);
 			mage.position = p;
 			mage.draw();
+		}
+		for(Point p : orcCoordinates) {
+			g2.setColor(Color.BLUE);
+			orc.setGraphics(g2);
+			orc.position = p;
+			orc.draw();
 		}
 		
 		// Drawing all the projectiles
@@ -204,13 +215,13 @@ public class GamePanel extends JPanel implements Runnable{
 			
 			if(timesLooped%25 == 0 && levelOne.goneBy < levelOne.getEnemyNumber()) {
 				levelOne.getEnemyArray()[levelOne.goneBy].position = new Point(40, 0); // Starting point of where the monsters spawn
-				levelOne.getEnemyArray()[levelOne.goneBy].velocity = new Point(0,1); // Speed of the mosnters
+				levelOne.getEnemyArray()[levelOne.goneBy].velocity = new Point(0, 1); // Speed of the mosnters
 				levelOne.goneBy++;
 			}			
 			
 			// Iterate through all the towers to see if they can fire at something
 			if(timesLooped%100 == 0) {
-				for(SkeletonTower tower: towerOnes) {
+				for(SkeletonTower tower: skeletonCopy) {
 					for(int i = 0; i < levelOne.getEnemyNumber(); i++) {
 						if(tower.getFireBounds().intersects(levelOne.enemies[i].getBounds())) {
 							
@@ -220,14 +231,14 @@ public class GamePanel extends JPanel implements Runnable{
 							proj.velocity = calculateNeededVelocity(tower.position, levelOne.enemies[i].position);
 							towerOneProjectiles.add(proj);
 							Point tempCoordinate = tower.position;
-							towerOnes.remove(tower);
+							skeletonCopy.remove(tower);
 							SkeletonTower newTower = new SkeletonTower(this, (Graphics2D) this.getGraphics(), tempCoordinate.x, tempCoordinate.y);
-							towerOnes.add(newTower);
+							skeletonCopy.add(newTower);
 							break;
 						}
 					}
 				}
-				for(SkeletonTower t2: towerTwos) {
+				for(SkeletonTower t2: mageCopy) {
 					for(int i = 0; i < levelOne.getEnemyNumber(); i++) {
 						if(t2.getFireBounds().intersects(levelOne.enemies[i].getBounds())) {
 							
@@ -237,9 +248,26 @@ public class GamePanel extends JPanel implements Runnable{
 							proj2.velocity = calculateNeededVelocity(t2.position, levelOne.enemies[i].position);
 							towerTwoProjectiles.add(proj2);
 							Point tempCoordinate = t2.position;
-							towerTwos.remove(t2);
+							mageCopy.remove(t2);
 							MageTower newTower = new MageTower(this, (Graphics2D) this.getGraphics(), tempCoordinate.x, tempCoordinate.y);
-							towerTwos.add(newTower);
+							mageCopy.add(newTower);
+							break;
+						}
+					}
+				}
+				for(SkeletonTower t3: orcCopy) {
+					for(int i = 0; i < levelOne.getEnemyNumber(); i++) {
+						if(t3.getFireBounds().intersects(levelOne.enemies[i].getBounds())) {
+							
+							// Fire
+							proj = new Projectile(this, null);
+							proj.position = t3.position;
+							proj.velocity = calculateNeededVelocity(t3.position, levelOne.enemies[i].position);
+							towerOneProjectiles.add(proj);
+							Point tempCoordinate = t3.position;
+							orcCopy.remove(t3);
+							OrcTower newTower = new OrcTower(this, (Graphics2D) this.getGraphics(), tempCoordinate.x, tempCoordinate.y);
+							orcCopy.add(newTower);
 							break;
 						}
 					}
@@ -280,9 +308,9 @@ public class GamePanel extends JPanel implements Runnable{
 						if(levelOne.enemies[ctr].health <=0) {
 							levelOne.enemies[ctr].alive = false;
 							levelOne.enemies[ctr].position = new Point(-200,-200);
-							Main.actionPanel.addGold(5);
 							
 							// Add more gold on higher levels
+							Main.actionPanel.addGold(5);
 							if(level == 3)	Main.actionPanel.addGold(15);
 							if(level == 4)	Main.actionPanel.addGold(25);
 							if(level == 5) 	Main.actionPanel.addGold(35);

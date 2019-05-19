@@ -13,13 +13,11 @@ public class ActionPanel extends JPanel implements ActionListener {
 	boolean started = false;
 	boolean gameStarted = false;
 	public boolean nextLevelStarted = false;
-	public int goldLeft = 10000;
+	public int goldLeft = 250;
 	public int livesLeft = 10;
-	public int wavesCompleted = 0;
+	public int wavesCompleted = 1; // This is really the wave that the game is on
 	private int towerSelection = 1;
 	private OutlineLabel towerSelectionLabel;
-	private ImageButton skeletonTower;
-	private ImageButton mageTower;
 	private ImageButton playButton;
 	private ImageButton pauseButton;
 	private OutlineLabel gold;
@@ -28,6 +26,10 @@ public class ActionPanel extends JPanel implements ActionListener {
 	private ImageButton nextLevelButton;
 	private OutlineLabel waves;
 	private BufferedImage backgroundImage;
+	
+	private ImageButton skeletonTower;
+	private ImageButton mageTower;
+	private ImageButton orcTower;
 	
 	public ActionPanel(Dimension size) {
 		super();
@@ -45,6 +47,9 @@ public class ActionPanel extends JPanel implements ActionListener {
 		
 		mageTower = new ImageButton("/resources/Mage.png", false, 1, false);
 		mageTower.addActionListener(this);
+		
+		orcTower = new ImageButton("/resources/Orc.png", false, 1, false);
+		orcTower.addActionListener(this);
 		
 		playButton = new ImageButton("/resources/PlayButton.png", true, 0.5, false);
 		playButton.addActionListener(this);
@@ -89,11 +94,15 @@ public class ActionPanel extends JPanel implements ActionListener {
 		this.setLayout(null);
 		this.add(skeletonTower);
 		this.add(mageTower);
+		this.add(orcTower);
+		
 		this.add(playButton);
 		this.add(pauseButton);
 		
 		skeletonTower.setBounds(20,20,50,50);
 		mageTower.setBounds(80,20,50,50);
+		orcTower.setBounds(140,20,50,50);
+		
 		playButton.setBounds(10,135,150,100);
 		pauseButton.setBounds(160,135,150,100);
 		this.add(gold);
@@ -124,11 +133,19 @@ public class ActionPanel extends JPanel implements ActionListener {
 	public void buySkeletonTower() {
 		goldLeft -= 25;
 		gold.setText("Gold: "+goldLeft);
+		gold.setBounds((int)(320 - gold.getPreferredSize().getWidth()) / 2,210,400,100);
 	}
 	
 	public void buyMageTower() {
 		goldLeft -= 100;
 		gold.setText("Gold: "+goldLeft);
+		gold.setBounds((int)(320 - gold.getPreferredSize().getWidth()) / 2,210,400,100);
+	}
+	
+	public void buyOrcTower() {
+		goldLeft -= 150;
+		gold.setText("Gold: "+goldLeft);
+		gold.setBounds((int)(320 - gold.getPreferredSize().getWidth()) / 2,210,400,100);
 	}
 	
 	public void addGold(int amount) {
@@ -171,6 +188,7 @@ public class ActionPanel extends JPanel implements ActionListener {
 	public void clearBorders() {
 		skeletonTower.setBorder(false);
 		mageTower.setBorder(false);
+		orcTower.setBorder(false);
 	}
 	
 	public void actionPerformed(ActionEvent e) {
@@ -196,6 +214,13 @@ public class ActionPanel extends JPanel implements ActionListener {
 			towerSelectionLabel.setText("MAGE");
 			clearBorders();
 			mageTower.setBorder(true);
+			towerSelectionLabel.setBounds((int)(320 - towerSelectionLabel.getPreferredSize().getWidth()) / 2,400,400,100);
+		}
+		if(e.getSource() == orcTower) {
+			towerSelection = 3;
+			towerSelectionLabel.setText("ORC");
+			clearBorders();
+			orcTower.setBorder(true);
 			towerSelectionLabel.setBounds((int)(320 - towerSelectionLabel.getPreferredSize().getWidth()) / 2,400,400,100);
 		}
 		if(e.getSource() == nextLevelButton) {
