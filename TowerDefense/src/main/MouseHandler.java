@@ -32,7 +32,7 @@ public class MouseHandler extends MouseAdapter {
 				if(x == textCoordinate.x) 	clickedChar = row.charAt(x);
 			}
 		}
-		if(clickedChar != '1' && clickedChar != 'x' && !Main.isPaused) {return true;}
+		if(clickedChar != '1' && clickedChar != '2' && !Main.isPaused) {return true;}
 		return false;
 	}
 	
@@ -65,32 +65,69 @@ public class MouseHandler extends MouseAdapter {
 		if(checkBuildable(e.getPoint())) { // Checks if point is buildable
 			int roundedX = (e.getX()/48)*48;
 			int roundedY = (e.getY()/48)*48;
-			SkeletonTower tow = new SkeletonTower(Main.gamePanel, (Graphics2D)Main.gamePanel.getGraphics(), roundedX, roundedY-10);
+			SkeletonTower tow = new SkeletonTower(Main.gamePanel, (Graphics2D)Main.gamePanel.getGraphics(), roundedX, roundedY);
 			towerExists = false;
 			
 			for(Point p : Main.gamePanel.skeletonCoordinates) {
-				if(p.equals(new Point(roundedX, roundedY-10)))	towerExists = true;
+				if(p.equals(new Point(roundedX, roundedY))) {
+					towerExists = true;
+				}
 			}
 			for(Point p2 : Main.gamePanel.mageCoordinates) {
-				if(p2.equals(new Point(roundedX, roundedY-10)))	towerExists = true;
+				if(p2.equals(new Point(roundedX, roundedY))) {
+					towerExists = true;
+				}
 			}
 			for(Point p3 : Main.gamePanel.orcCoordinates) {
-				if(p3.equals(new Point(roundedX, roundedY-10))) towerExists = true;
+				if(p3.equals(new Point(roundedX, roundedY))) {
+					towerExists = true;
+				}
+			}
+			for(Point p4 : Main.gamePanel.demonCoordinates) {
+				if(p4.equals(new Point(roundedX, roundedY))) {
+					towerExists = true;
+				}
+			}
+			for(Point p5 : Main.gamePanel.beholderCoordinates) {
+				if(p5.equals(new Point(roundedX, roundedY))) {
+					towerExists = true;
+				}
+			}
+			for(Point p6 : Main.gamePanel.dragonCoordinates) {
+				if(p6.equals(new Point(roundedX, roundedY))) {
+					towerExists = true;
+				}
 			}
 			if(!towerExists && Main.actionPanel.goldLeft >=25 && Main.actionPanel.getTowerSelection() == 1) {
-				Main.gamePanel.skeletonCoordinates.add(new Point(roundedX, roundedY-10));
+				Main.gamePanel.skeletonCoordinates.add(new Point(roundedX, roundedY));
 				Main.actionPanel.buySkeletonTower();
 				Main.gamePanel.skeletonCopy.add(tow);
 			}
 			if(!towerExists && Main.actionPanel.goldLeft >=100 && Main.actionPanel.getTowerSelection() == 2) {
-				Main.gamePanel.mageCoordinates.add(new Point(roundedX, roundedY-10));
+				Main.gamePanel.mageCoordinates.add(new Point(roundedX, roundedY));
 				Main.actionPanel.buyMageTower();
 				Main.gamePanel.mageCopy.add(tow);
 			}
 			if(!towerExists && Main.actionPanel.goldLeft >=150 && Main.actionPanel.getTowerSelection() == 3) {
-				Main.gamePanel.orcCoordinates.add(new Point(roundedX, roundedY-10));
+				Main.gamePanel.orcCoordinates.add(new Point(roundedX, roundedY));
 				Main.actionPanel.buyOrcTower();
 				Main.gamePanel.orcCopy.add(tow);
+			}
+			if(!towerExists && Main.actionPanel.goldLeft >=250 && Main.actionPanel.getTowerSelection() == 4) {
+				Main.gamePanel.demonCoordinates.add(new Point(roundedX, roundedY));
+				Main.actionPanel.buyDemonTower();
+				Main.gamePanel.demonCopy.add(tow);
+			}
+			if(!towerExists && Main.actionPanel.goldLeft >=500 && Main.actionPanel.getTowerSelection() == 5) {
+				Main.gamePanel.beholderCoordinates.add(new Point(roundedX, roundedY));
+				Main.actionPanel.buyBeholderTower();
+				Main.gamePanel.beholderCopy.add(tow);
+			}
+			if(!towerExists && Main.actionPanel.goldLeft >=1000 && Main.actionPanel.getTowerSelection() == 6) {
+				System.out.println("yes");
+				Main.gamePanel.dragonCoordinates.add(new Point(roundedX, roundedY));
+				Main.actionPanel.buyDragonTower();
+				Main.gamePanel.dragonCopy.add(tow);
 			}
 		}
 	}

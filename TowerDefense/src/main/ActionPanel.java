@@ -30,6 +30,9 @@ public class ActionPanel extends JPanel implements ActionListener {
 	private ImageButton skeletonTower;
 	private ImageButton mageTower;
 	private ImageButton orcTower;
+	private ImageButton demonTower;
+	private ImageButton beholderTower;
+	private ImageButton dragonTower;
 	
 	public ActionPanel(Dimension size) {
 		super();
@@ -44,12 +47,16 @@ public class ActionPanel extends JPanel implements ActionListener {
 		
 		skeletonTower = new ImageButton("/resources/Skeleton.png", false, 1, true);
 		skeletonTower.addActionListener(this);
-		
 		mageTower = new ImageButton("/resources/Mage.png", false, 1, false);
 		mageTower.addActionListener(this);
-		
 		orcTower = new ImageButton("/resources/Orc.png", false, 1, false);
 		orcTower.addActionListener(this);
+		demonTower = new ImageButton("/resources/Demon.png", false, 1, false);
+		demonTower.addActionListener(this);
+		beholderTower = new ImageButton("/resources/Beholder.png", false, 1, false);
+		beholderTower.addActionListener(this);
+		dragonTower = new ImageButton("/resources/Dragon.png", false, 1, false);
+		dragonTower.addActionListener(this);
 		
 		playButton = new ImageButton("/resources/PlayButton.png", true, 0.5, false);
 		playButton.addActionListener(this);
@@ -95,13 +102,19 @@ public class ActionPanel extends JPanel implements ActionListener {
 		this.add(skeletonTower);
 		this.add(mageTower);
 		this.add(orcTower);
+		this.add(demonTower);
+		this.add(beholderTower);
+		this.add(dragonTower);
 		
 		this.add(playButton);
 		this.add(pauseButton);
 		
-		skeletonTower.setBounds(20,20,50,50);
-		mageTower.setBounds(80,20,50,50);
-		orcTower.setBounds(140,20,50,50);
+		skeletonTower.setBounds(15,20,50,50);
+		mageTower.setBounds(75,20,50,50);
+		orcTower.setBounds(135,20,50,50);
+		demonTower.setBounds(195,20,50,50);
+		beholderTower.setBounds(255,20,50,50);
+		dragonTower.setBounds(15,90,50,50);
 		
 		playButton.setBounds(10,135,150,100);
 		pauseButton.setBounds(160,135,150,100);
@@ -147,6 +160,21 @@ public class ActionPanel extends JPanel implements ActionListener {
 		gold.setText("Gold: "+goldLeft);
 		gold.setBounds((int)(320 - gold.getPreferredSize().getWidth()) / 2,210,400,100);
 	}
+	public void buyDemonTower() {
+		goldLeft -= 250;
+		gold.setText("Gold: "+goldLeft);
+		gold.setBounds((int)(320 - gold.getPreferredSize().getWidth()) / 2,210,400,100);
+	}
+	public void buyBeholderTower() {
+		goldLeft -= 500;
+		gold.setText("Gold: "+goldLeft);
+		gold.setBounds((int)(320 - gold.getPreferredSize().getWidth()) / 2,210,400,100);
+	}
+	public void buyDragonTower() {
+		goldLeft -= 1000;
+		gold.setText("Gold: "+goldLeft);
+		gold.setBounds((int)(320 - gold.getPreferredSize().getWidth()) / 2,210,400,100);
+	}
 	
 	public void addGold(int amount) {
 		goldLeft += amount;
@@ -189,6 +217,9 @@ public class ActionPanel extends JPanel implements ActionListener {
 		skeletonTower.setBorder(false);
 		mageTower.setBorder(false);
 		orcTower.setBorder(false);
+		demonTower.setBorder(false);
+		beholderTower.setBorder(false);
+		dragonTower.setBorder(false);
 	}
 	
 	public void actionPerformed(ActionEvent e) {
@@ -221,6 +252,27 @@ public class ActionPanel extends JPanel implements ActionListener {
 			towerSelectionLabel.setText("ORC");
 			clearBorders();
 			orcTower.setBorder(true);
+			towerSelectionLabel.setBounds((int)(320 - towerSelectionLabel.getPreferredSize().getWidth()) / 2,400,400,100);
+		}
+		if(e.getSource() == demonTower) {
+			towerSelection = 4;
+			towerSelectionLabel.setText("DEMON");
+			clearBorders();
+			demonTower.setBorder(true);
+			towerSelectionLabel.setBounds((int)(320 - towerSelectionLabel.getPreferredSize().getWidth()) / 2,400,400,100);
+		}
+		if(e.getSource() == beholderTower) {
+			towerSelection = 5;
+			towerSelectionLabel.setText("BEHOLDER");
+			clearBorders();
+			beholderTower.setBorder(true);
+			towerSelectionLabel.setBounds((int)(320 - towerSelectionLabel.getPreferredSize().getWidth()) / 2,400,400,100);
+		}
+		if(e.getSource() == dragonTower) {
+			towerSelection = 6;
+			towerSelectionLabel.setText("DRAGON");
+			clearBorders();
+			dragonTower.setBorder(true);
 			towerSelectionLabel.setBounds((int)(320 - towerSelectionLabel.getPreferredSize().getWidth()) / 2,400,400,100);
 		}
 		if(e.getSource() == nextLevelButton) {

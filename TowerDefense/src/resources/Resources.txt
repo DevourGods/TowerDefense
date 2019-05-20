@@ -1,0 +1,20 @@
+All resources used in this game will be listed here:
+
+Menu: https://imgur.com/a/bMHTEnt
+
+Grass: https://opengameart.org/content/grass-textureseamless-2d
+Path: https://opengameart.org/content/seamless-2
+Rock: https://opengameart.org/content/wall-grass-rock-stone-wood-and-dirt-480
+
+Bee: https://www.deviantart.com/tsarcube/art/Honey-Bee-Monster-Girl-Sprite-210801491
+Werebat: https://www.deviantart.com/tsarcube/art/WereBat-188387810
+Siren: https://www.deviantart.com/tsarcube/art/Siren-Monster-Girl-Sprite-307280298
+Harpy: https://www.deviantart.com/tsarcube/art/Harpy-Monster-Girl-Sprite-210652764
+DarkHarpy: https://www.deviantart.com/tsarcube/art/Black-Harpy-Monster-Girl-Sprit-210800060
+Boss: https://www.deviantart.com/tsarcube/art/Imp-Monster-Girl-Sprite-210949371
+
+Skeleton: https://opengameart.org/content/10-basic-rpg-enemies
+Mage: https://opengameart.org/content/6-more-rpg-enemies
+Orc: https://opengameart.org/content/6-more-rpg-enemies
+Demon: https://opengameart.org/content/6-more-rpg-enemies
+Beholder: https://opengameart.org/content/10-basic-rpg-enemies

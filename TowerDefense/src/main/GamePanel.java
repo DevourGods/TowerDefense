@@ -37,6 +37,9 @@ public class GamePanel extends JPanel implements Runnable{
 	private SkeletonTower skeleton;
 	private MageTower mage;
 	private OrcTower orc;
+	private DemonTower demon;
+	private BeholderTower beholder;
+	private DragonTower dragon;
 	private Level levelOne;
 	private Level levelTwo;
 	private Level levelThree;
@@ -55,9 +58,15 @@ public class GamePanel extends JPanel implements Runnable{
 	public ArrayList<Point> skeletonCoordinates = new ArrayList<Point>();
 	public ArrayList<Point> mageCoordinates = new ArrayList<Point>();
 	public ArrayList<Point> orcCoordinates = new ArrayList<Point>();
+	public ArrayList<Point> demonCoordinates = new ArrayList<Point>();
+	public ArrayList<Point> beholderCoordinates = new ArrayList<Point>();
+	public ArrayList<Point> dragonCoordinates = new ArrayList<Point>();
 	public static CopyOnWriteArrayList<SkeletonTower> skeletonCopy = new CopyOnWriteArrayList<SkeletonTower>();
 	public static CopyOnWriteArrayList<SkeletonTower> mageCopy = new CopyOnWriteArrayList<SkeletonTower>();
 	public static CopyOnWriteArrayList<SkeletonTower> orcCopy = new CopyOnWriteArrayList<SkeletonTower>();
+	public static CopyOnWriteArrayList<SkeletonTower> demonCopy = new CopyOnWriteArrayList<SkeletonTower>();
+	public static CopyOnWriteArrayList<SkeletonTower> beholderCopy = new CopyOnWriteArrayList<SkeletonTower>();
+	public static CopyOnWriteArrayList<SkeletonTower> dragonCopy = new CopyOnWriteArrayList<SkeletonTower>();
 	private CopyOnWriteArrayList<Projectile> towerOneProjectiles = new CopyOnWriteArrayList<Projectile>();
 	private CopyOnWriteArrayList<ProjectileTwo> towerTwoProjectiles = new CopyOnWriteArrayList<ProjectileTwo>();
 	private Projectile proj;
@@ -85,6 +94,9 @@ public class GamePanel extends JPanel implements Runnable{
 		skeleton = new SkeletonTower(this, (Graphics2D) this.getGraphics(), 0, 0);
 		mage = new MageTower(this, (Graphics2D) this.getGraphics(), 0, 0);
 		orc = new OrcTower(this, (Graphics2D) this.getGraphics(), 0, 0);
+		demon = new DemonTower(this, (Graphics2D) this.getGraphics(), 0, 0);
+		beholder = new BeholderTower(this, (Graphics2D) this.getGraphics(), 0, 0);
+		dragon = new DragonTower(this, (Graphics2D) this.getGraphics(), 0, 0);
 		
 		levelOne = new Level(25, monsterBee, 100, 0); // Amount, EnemyType, Health, Type
 		levelTwo = new Level(50, monsterWerebat, 200, 1);
@@ -104,6 +116,7 @@ public class GamePanel extends JPanel implements Runnable{
 			m.setGraphics(g2);
 			m.draw();
 		}
+		
 		// Drawing all the towers
 		for(Point p : skeletonCoordinates) {
 			g2.setColor(Color.BLUE);
@@ -123,6 +136,24 @@ public class GamePanel extends JPanel implements Runnable{
 			orc.position = p;
 			orc.draw();
 		}
+		for(Point p : demonCoordinates) {
+			g2.setColor(Color.BLUE);
+			demon.setGraphics(g2);
+			demon.position = p;
+			demon.draw();
+		}
+		for(Point p : beholderCoordinates) {
+			g2.setColor(Color.BLUE);
+			beholder.setGraphics(g2);
+			beholder.position = p;
+			beholder.draw();
+		}
+		for(Point p : dragonCoordinates) {
+			g2.setColor(Color.BLUE);
+			dragon.setGraphics(g2);
+			dragon.position = p;
+			dragon.draw();
+		}
 		
 		// Drawing all the projectiles
 		for(Projectile pj : towerOneProjectiles) {
@@ -133,6 +164,15 @@ public class GamePanel extends JPanel implements Runnable{
 			pj2.setGraphics(g2);
 			pj2.draw();
 		}
+		
+		// Drawing Stats Panel
+		/*
+		g2.setFont(bf2.getFont());
+		g2.setColor(new Color(100, 12, 0));
+		String statsCost = "Cost: 25 ";
+		Rectangle2D costBounds = g2.getFontMetrics().getStringBounds(statsCost, g2);
+		g2.drawString(statsCost, (int)(720 + costBounds.getWidth()/2 - 50), 60);
+		*/
 		
 		// If game over
 		if(gameOver) {
@@ -153,11 +193,13 @@ public class GamePanel extends JPanel implements Runnable{
 		
 		// If between levels
 		if(nextLevel) {
+			/*
 			g2.setFont(bf2.getFont());
 			g2.setColor(new Color(100, 12, 0));
 			String go = "Level Cleared. Get ready for next level.";
 			Rectangle2D bounds = g2.getFontMetrics().getStringBounds(go, g2);
 			g2.drawString(go, (int) ((this.getWidth() - bounds.getWidth())/2 - 100), 85);
+			*/
 		}
 
 	}
@@ -172,9 +214,9 @@ public class GamePanel extends JPanel implements Runnable{
 			for(int x = 0; x < 20; x++) {
 				if(row.charAt(x) == '0') {
 					g2.drawImage(grass, xCoordinate, yCoordinate, null);
-				}else if(row.charAt(x) == '1') {
+				} else if(row.charAt(x) == '1') {
 					g2.drawImage(path, xCoordinate, yCoordinate, null);
-				}else if(row.charAt(x) == '2') {
+				} else if(row.charAt(x) == '2') {
 					g2.drawImage(rock, xCoordinate, yCoordinate, null);
 				}
 				xCoordinate+=48;
@@ -220,7 +262,7 @@ public class GamePanel extends JPanel implements Runnable{
 			}			
 			
 			// Iterate through all the towers to see if they can fire at something
-			if(timesLooped%100 == 0) {
+			if(timesLooped%100 == 0) { // Fire rate
 				for(SkeletonTower tower: skeletonCopy) {
 					for(int i = 0; i < levelOne.getEnemyNumber(); i++) {
 						if(tower.getFireBounds().intersects(levelOne.enemies[i].getBounds())) {
@@ -272,6 +314,57 @@ public class GamePanel extends JPanel implements Runnable{
 						}
 					}
 				}
+				for(SkeletonTower t4: demonCopy) {
+					for(int i = 0; i < levelOne.getEnemyNumber(); i++) {
+						if(t4.getFireBounds().intersects(levelOne.enemies[i].getBounds())) {
+							
+							// Fire
+							proj = new Projectile(this, null);
+							proj.position = t4.position;
+							proj.velocity = calculateNeededVelocity(t4.position, levelOne.enemies[i].position);
+							towerOneProjectiles.add(proj);
+							Point tempCoordinate = t4.position;
+							demonCopy.remove(t4);
+							DemonTower newTower = new DemonTower(this, (Graphics2D) this.getGraphics(), tempCoordinate.x, tempCoordinate.y);
+							demonCopy.add(newTower);
+							break;
+						}
+					}
+				}
+				for(SkeletonTower t5: beholderCopy) {
+					for(int i = 0; i < levelOne.getEnemyNumber(); i++) {
+						if(t5.getFireBounds().intersects(levelOne.enemies[i].getBounds())) {
+							
+							// Fire
+							proj = new Projectile(this, null);
+							proj.position = t5.position;
+							proj.velocity = calculateNeededVelocity(t5.position, levelOne.enemies[i].position);
+							towerOneProjectiles.add(proj);
+							Point tempCoordinate = t5.position;
+							beholderCopy.remove(t5);
+							BeholderTower newTower = new BeholderTower(this, (Graphics2D) this.getGraphics(), tempCoordinate.x, tempCoordinate.y);
+							beholderCopy.add(newTower);
+							break;
+						}
+					}
+				}
+				for(SkeletonTower t6: dragonCopy) {
+					for(int i = 0; i < levelOne.getEnemyNumber(); i++) {
+						if(t6.getFireBounds().intersects(levelOne.enemies[i].getBounds())) {
+							
+							// Fire
+							proj = new Projectile(this, null);
+							proj.position = t6.position;
+							proj.velocity = calculateNeededVelocity(t6.position, levelOne.enemies[i].position);
+							towerOneProjectiles.add(proj);
+							Point tempCoordinate = t6.position;
+							dragonCopy.remove(t6);
+							DragonTower newTower = new DragonTower(this, (Graphics2D) this.getGraphics(), tempCoordinate.x, tempCoordinate.y);
+							dragonCopy.add(newTower);
+							break;
+						}
+					}
+				}
 			}
 			
 			// Conditions for removing projectile/enemy
@@ -279,6 +372,11 @@ public class GamePanel extends JPanel implements Runnable{
 				if(proj.position.x < 0 || proj.position.y < 0 || proj.position.x > this.getWidth() || proj.position.y > this.getHeight()) {
 					towerOneProjectiles.remove(proj);
 				}
+				/*
+				if(proj.position.x > skeletonCoordinates.get(proj1).getX() + 200 || proj.position.x < skeletonCoordinates.get(proj1).getX() - 200 || proj.position.y > skeletonCoordinates.get(proj1).getY() + 200 || proj.position.y < skeletonCoordinates.get(proj1).getY() - 200) {
+					towerOneProjectiles.remove(proj);
+				}
+				*/
 				for(int ctr = 0; ctr < levelOne.getEnemyNumber(); ctr++) {
 					if(proj.getBounds().intersects(levelOne.enemies[ctr].getBounds())) {
 						levelOne.enemies[ctr].health -= 100;
@@ -322,7 +420,7 @@ public class GamePanel extends JPanel implements Runnable{
 			}
 			
 			for(AnimatedSprite as : levelOne.enemies) { // Conditions for losing a life
-				if(as.getBounds().intersects(new Rectangle(720,578, 25,25))) { // Death box
+				if(as.getBounds().intersects(new Rectangle(720,578,25,25))) { // Death box
 					as.alive = false;
 					as.position = new Point(-200,-200);
 					Main.actionPanel.loseLife();
@@ -343,7 +441,7 @@ public class GamePanel extends JPanel implements Runnable{
 				if(!incremented) {
 					Main.actionPanel.incrementWave();
 					incremented = true;
-					if(Main.actionPanel.wavesCompleted == 6) {
+					if(Main.actionPanel.wavesCompleted == 6) { // Max level
 						nextLevel = false;
 						gameWon = true;
 						repaint();
@@ -380,5 +478,4 @@ public class GamePanel extends JPanel implements Runnable{
 			}
 		}
 	}
-
 }

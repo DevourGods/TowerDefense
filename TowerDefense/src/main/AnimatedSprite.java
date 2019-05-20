@@ -31,7 +31,7 @@ public class AnimatedSprite {
 	public boolean walking = true;
 	public int health;
 	
-	//CONSTRUCTOR
+	// Constructor
 	public AnimatedSprite(JPanel _frame, Graphics2D _g2) {
 		frame= _frame;
 		g2 = _g2;
@@ -55,11 +55,11 @@ public class AnimatedSprite {
 		
 	}
 	
-	//accesor methods
+	// Accessor methods
 	public JPanel getJFrame() {return frame;}
 	public Graphics2D getGraphics() {return g2;}
 	
-	//mutator methods
+	// Mutator methods
 	public void setGraphics(Graphics2D _g2) {g2 = _g2;}
 	public void setImage(BufferedImage _image) {image = _image;}
 	
@@ -142,26 +142,26 @@ public class AnimatedSprite {
 	public synchronized void draw() {
 		if(alive) {
 			update();
-			//get current frame
+			// Get current frame
 			int frameX = (currentFrame % columns) * frameWidth;
 			int frameY = (currentFrame / columns) * frameHeight;
-			//draw the frame
+			// Draw the frame
 			g2.drawImage(image, position.x, position.y,position.x+frameWidth, position.y+frameHeight,
 					frameX, frameY, frameX+frameWidth, frameY+frameHeight,getJFrame());
 		}
 	}
 	
-	//check for collision with a rectangular shape
+	// Check for collision with a rectangular shape
 	public boolean collidesWith(Rectangle rect) {
 		return (rect.intersects(getBounds()));
 	}
 	
-	//check for collision with another sprite
+	// Check for collision with another sprite
 	public boolean collidesWith(AnimatedSprite other) {
 		return (getBounds().intersects(other.getBounds()));
 	}
 	
-	//check for collision with a point
+	// Check for collision with a point
 	public boolean collidesWith(Point p) {
 		return (getBounds().contains(p));
 	}
