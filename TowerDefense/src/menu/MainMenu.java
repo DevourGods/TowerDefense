@@ -1,20 +1,25 @@
 package menu;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.net.URL;
 import javax.swing.*;
-
+import main.Main;
 import custom.CreateFont;
 import custom.ImageButton;
 import custom.MenuPanel;
 import custom.OutlineLabel;
 
-public class MainMenu extends JPanel
+public class MainMenu extends JPanel implements ActionListener
 {
 	public static final long serialVersionUID = 1L;
 	public static JFrame frame;
 	private static Dimension frameSize = new Dimension(1280, 720);
 	public final static int w = 1280;
 	public final static int h = 720;
+	
+	private MenuPanel menu;
 	
 	private ImageButton startBTN;
 	private ImageButton optionsBTN;
@@ -28,8 +33,12 @@ public class MainMenu extends JPanel
 	
 	public void startMenu()
 	{	
-		MenuPanel menu = new MenuPanel("/resources/Menu-Small.png");
+		menu = new MenuPanel("/resources/Menu-Small.png");
 		menu.setLayout(new BoxLayout(menu, BoxLayout.Y_AXIS));
+		
+		URL iconURL = getClass().getResource("/resources/Icon.png");
+		ImageIcon icon = new ImageIcon(iconURL);
+		frame.setIconImage(icon.getImage());
 		
 		OutlineLabel title = new OutlineLabel("Undead Defense", true, Color.BLACK);
 		startBTN = new ImageButton("/resources/StartButton.png", true, 0.7, false);
@@ -53,12 +62,27 @@ public class MainMenu extends JPanel
 		
 		
 		// Adds actionListeners
-		startBTN.addActionListener(new Start());
-		quitBTN.addActionListener(new Quit());
+		startBTN.addActionListener(this);
+		optionsBTN.addActionListener(this);
+		quitBTN.addActionListener(this);
 		
 		// Adds panel to frame
 		add(menu);
 		
+	}
+	
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == startBTN) {
+			MainMenu.frame.dispose();
+			main.Main.startGame();
+			
+		} else if (e.getSource() == optionsBTN) {
+			MenuPanel options = new MenuPanel("/resources/Menu-Small.png");
+			frame.setContentPane(options);
+		} else if (e.getSource() == quitBTN) {
+			frame.dispose();
+		}
 	}
 	
 	// Main Menu

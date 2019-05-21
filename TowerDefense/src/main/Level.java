@@ -28,17 +28,17 @@ public class Level {
 			while (cnt < enemyAmount.get(count) + previousTotal)
 			{
 				if(type.get(count) == 0)
-					enemies[cnt] = new MonsterBee(enemyType.get(count).getJFrame(), enemyType.get(count).getGraphics());
+					enemies[cnt] = new MonsterBee(enemyType.get(count).getJFrame(), enemyType.get(count).getGraphics(), 0);
 				if(type.get(count) == 1)
-					enemies[cnt] = new MonsterWerebat(enemyType.get(count).getJFrame(), enemyType.get(count).getGraphics());
+					enemies[cnt] = new MonsterWerebat(enemyType.get(count).getJFrame(), enemyType.get(count).getGraphics(), 1);
 				if(type.get(count) == 2)
-					enemies[cnt] = new MonsterSiren(enemyType.get(count).getJFrame(), enemyType.get(count).getGraphics());
+					enemies[cnt] = new MonsterSiren(enemyType.get(count).getJFrame(), enemyType.get(count).getGraphics(), 2);
 				if(type.get(count) == 3)
-					enemies[cnt] = new MonsterHarpy(enemyType.get(count).getJFrame(), enemyType.get(count).getGraphics());
+					enemies[cnt] = new MonsterHarpy(enemyType.get(count).getJFrame(), enemyType.get(count).getGraphics(), 3);
 				if(type.get(count) == 4)
-					enemies[cnt] = new MonsterDarkHarpy(enemyType.get(count).getJFrame(), enemyType.get(count).getGraphics());
+					enemies[cnt] = new MonsterDarkHarpy(enemyType.get(count).getJFrame(), enemyType.get(count).getGraphics(), 4);
 				if(type.get(count) == 5)
-					enemies[cnt] = new MonsterBoss(enemyType.get(count).getJFrame(), enemyType.get(count).getGraphics());
+					enemies[cnt] = new MonsterBoss(enemyType.get(count).getJFrame(), enemyType.get(count).getGraphics(), 5);
 				enemies[cnt].frameDelay = 25;
 				enemies[cnt].health = health.get(count);
 				cnt++;

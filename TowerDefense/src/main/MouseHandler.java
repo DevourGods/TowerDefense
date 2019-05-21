@@ -100,22 +100,22 @@ public class MouseHandler extends MouseAdapter {
 					towerExists = true;
 				}
 			}
-			if(!towerExists && Main.actionPanel.goldLeft >=25 && Main.actionPanel.getTowerSelection() == 1) {
+			if(!towerExists && Main.actionPanel.goldLeft >=225 && Main.actionPanel.getTowerSelection() == 1) {
 				Main.gamePanel.skeletonCoordinates.add(new Point(roundedX, roundedY));
 				Main.actionPanel.buySkeletonTower();
 				Main.gamePanel.skeletonCopy.add(tow);
 			}
-			if(!towerExists && Main.actionPanel.goldLeft >=100 && Main.actionPanel.getTowerSelection() == 2) {
+			if(!towerExists && Main.actionPanel.goldLeft >=375 && Main.actionPanel.getTowerSelection() == 2) {
 				Main.gamePanel.mageCoordinates.add(new Point(roundedX, roundedY));
 				Main.actionPanel.buyMageTower();
 				Main.gamePanel.mageCopy.add(tow);
 			}
-			if(!towerExists && Main.actionPanel.goldLeft >=150 && Main.actionPanel.getTowerSelection() == 3) {
+			if(!towerExists && Main.actionPanel.goldLeft >=315 && Main.actionPanel.getTowerSelection() == 3) {
 				Main.gamePanel.orcCoordinates.add(new Point(roundedX, roundedY));
 				Main.actionPanel.buyOrcTower();
 				Main.gamePanel.orcCopy.add(tow);
 			}
-			if(!towerExists && Main.actionPanel.goldLeft >=250 && Main.actionPanel.getTowerSelection() == 4) {
+			if(!towerExists && Main.actionPanel.goldLeft >=420 && Main.actionPanel.getTowerSelection() == 4) {
 				Main.gamePanel.demonCoordinates.add(new Point(roundedX, roundedY));
 				Main.actionPanel.buyDemonTower();
 				Main.gamePanel.demonCopy.add(tow);
@@ -125,7 +125,7 @@ public class MouseHandler extends MouseAdapter {
 				Main.actionPanel.buyBeholderTower();
 				Main.gamePanel.beholderCopy.add(tow);
 			}
-			if(!towerExists && Main.actionPanel.goldLeft >=1000 && Main.actionPanel.getTowerSelection() == 6) {
+			if(!towerExists && Main.actionPanel.goldLeft >=1250 && Main.actionPanel.getTowerSelection() == 6) {
 				Main.gamePanel.dragonCoordinates.add(new Point(roundedX, roundedY));
 				Main.actionPanel.buyDragonTower();
 				Main.gamePanel.dragonCopy.add(tow);

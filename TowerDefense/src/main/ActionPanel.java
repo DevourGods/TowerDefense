@@ -18,7 +18,7 @@ public class ActionPanel extends JPanel implements ActionListener {
 	boolean started = false;
 	boolean gameStarted = false;
 	public boolean nextLevelStarted = false;
-	public int goldLeft = 2500;
+	public int goldLeft = 750;
 	public int livesLeft = 10;
 	public int wavesCompleted = 1; // This is really the wave that the game is on
 	private int towerSelection = 1;
@@ -149,24 +149,24 @@ public class ActionPanel extends JPanel implements ActionListener {
 	}
 	
 	public void buySkeletonTower() {
-		goldLeft -= 25;
+		goldLeft -= 225;
 		gold.setText("Gold: "+goldLeft);
 		gold.setBounds((int)(320 - gold.getPreferredSize().getWidth()) / 2,210,400,100);
 	}
 	
 	public void buyMageTower() {
-		goldLeft -= 100;
+		goldLeft -= 375;
 		gold.setText("Gold: "+goldLeft);
 		gold.setBounds((int)(320 - gold.getPreferredSize().getWidth()) / 2,210,400,100);
 	}
 	
 	public void buyOrcTower() {
-		goldLeft -= 150;
+		goldLeft -= 315;
 		gold.setText("Gold: "+goldLeft);
 		gold.setBounds((int)(320 - gold.getPreferredSize().getWidth()) / 2,210,400,100);
 	}
 	public void buyDemonTower() {
-		goldLeft -= 250;
+		goldLeft -= 420;
 		gold.setText("Gold: "+goldLeft);
 		gold.setBounds((int)(320 - gold.getPreferredSize().getWidth()) / 2,210,400,100);
 	}
@@ -176,7 +176,7 @@ public class ActionPanel extends JPanel implements ActionListener {
 		gold.setBounds((int)(320 - gold.getPreferredSize().getWidth()) / 2,210,400,100);
 	}
 	public void buyDragonTower() {
-		goldLeft -= 1000;
+		goldLeft -= 1250;
 		gold.setText("Gold: "+goldLeft);
 		gold.setBounds((int)(320 - gold.getPreferredSize().getWidth()) / 2,210,400,100);
 	}

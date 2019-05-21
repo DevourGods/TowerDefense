@@ -4,11 +4,11 @@ import java.awt.*;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.image.*;
-import java.io.IOException;
+import java.io.*;
 
 public class AnimatedSprite {
 	
-	//instance variables
+	// Instance variables
 	protected JPanel frame;
 	protected Graphics2D g2;
 	public BufferedImage image;
@@ -30,8 +30,31 @@ public class AnimatedSprite {
 	public boolean once;
 	public boolean walking = true;
 	public int health;
+	public int spriteNum;
 	
 	// Constructor
+	public AnimatedSprite(JPanel _frame, Graphics2D _g2, int _spriteNum) {
+		frame= _frame;
+		g2 = _g2;
+		image = null;
+		alive = true;
+		position = new Point(960,0);
+		velocity = new Point(0,0);
+		rotationRate = 0.0;
+		currentState = 0;
+		currentFrame = 0;
+		totalFrames = 1;
+		animationDirection = 1;
+		frameCount = 0;
+		frameDelay = 0;
+		frameWidth = 0;
+		frameHeight = 0;
+		columns = 0;
+		moveAngle = 0.0;
+		faceAngle = 0.0;
+		once = false;
+		spriteNum = _spriteNum;
+	}
 	public AnimatedSprite(JPanel _frame, Graphics2D _g2) {
 		frame= _frame;
 		g2 = _g2;
@@ -52,7 +75,6 @@ public class AnimatedSprite {
 		moveAngle = 0.0;
 		faceAngle = 0.0;
 		once = false;
-		
 	}
 	
 	// Accessor methods
@@ -164,5 +186,10 @@ public class AnimatedSprite {
 	// Check for collision with a point
 	public boolean collidesWith(Point p) {
 		return (getBounds().contains(p));
+	}
+	
+	public int getSpriteType ()
+	{
+		return spriteNum;
 	}
 }
