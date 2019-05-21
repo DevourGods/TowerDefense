@@ -1,9 +1,11 @@
-package main;
+package towers;
 
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 
 import javax.swing.JPanel;
+
+import main.AnimatedSprite;
 
 public class SkeletonTower extends AnimatedSprite {
 	

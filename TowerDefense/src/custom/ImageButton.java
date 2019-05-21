@@ -1,4 +1,4 @@
-package main;
+package custom;
 
 import java.awt.Color;
 import java.awt.Component;

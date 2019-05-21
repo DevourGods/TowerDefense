@@ -1,4 +1,4 @@
-package main;
+package towers;
 
 import java.awt.Graphics2D;
 

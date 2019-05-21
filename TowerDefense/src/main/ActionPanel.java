@@ -2,6 +2,11 @@ package main;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+
+import custom.CreateFont;
+import custom.ImageButton;
+import custom.OutlineLabel;
+
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
@@ -13,7 +18,7 @@ public class ActionPanel extends JPanel implements ActionListener {
 	boolean started = false;
 	boolean gameStarted = false;
 	public boolean nextLevelStarted = false;
-	public int goldLeft = 250;
+	public int goldLeft = 2500;
 	public int livesLeft = 10;
 	public int wavesCompleted = 1; // This is really the wave that the game is on
 	private int towerSelection = 1;

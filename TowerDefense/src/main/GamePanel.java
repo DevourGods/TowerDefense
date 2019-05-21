@@ -1,9 +1,31 @@
 package main;
 
 import javax.swing.*;
+
+import custom.CreateFont;
+import monsters.MonsterBee;
+import monsters.MonsterBoss;
+import monsters.MonsterDarkHarpy;
+import monsters.MonsterHarpy;
+import monsters.MonsterSiren;
+import monsters.MonsterWerebat;
+import towers.BeholderProjectile;
+import towers.BeholderTower;
+import towers.DemonProjectile;
+import towers.DemonTower;
+import towers.DragonProjectile;
+import towers.DragonTower;
+import towers.MageProjectile;
+import towers.MageTower;
+import towers.OrcProjectile;
+import towers.OrcTower;
+import towers.SkeletonProjectile;
+import towers.SkeletonTower;
+
 import java.awt.*;
 import javax.imageio.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.awt.geom.Rectangle2D;
@@ -51,7 +73,7 @@ public class GamePanel extends JPanel implements Runnable{
 	
 	public Thread gameLoop;
 	private AnimatedSprite[] enemies;
-	private Projectile projectile;
+	private SkeletonProjectile projectile;
 	
 	public MouseHandler mouseHandler = new MouseHandler(this.getGraphics());
 	
@@ -67,10 +89,18 @@ public class GamePanel extends JPanel implements Runnable{
 	public static CopyOnWriteArrayList<SkeletonTower> demonCopy = new CopyOnWriteArrayList<SkeletonTower>();
 	public static CopyOnWriteArrayList<SkeletonTower> beholderCopy = new CopyOnWriteArrayList<SkeletonTower>();
 	public static CopyOnWriteArrayList<SkeletonTower> dragonCopy = new CopyOnWriteArrayList<SkeletonTower>();
-	private CopyOnWriteArrayList<Projectile> towerOneProjectiles = new CopyOnWriteArrayList<Projectile>();
-	private CopyOnWriteArrayList<ProjectileTwo> towerTwoProjectiles = new CopyOnWriteArrayList<ProjectileTwo>();
-	private Projectile proj;
-	private ProjectileTwo proj2;
+	private CopyOnWriteArrayList<SkeletonProjectile> skeletonProjCopy = new CopyOnWriteArrayList<SkeletonProjectile>();
+	private CopyOnWriteArrayList<MageProjectile> mageProjCopy = new CopyOnWriteArrayList<MageProjectile>();
+	private CopyOnWriteArrayList<OrcProjectile> orcProjCopy = new CopyOnWriteArrayList<OrcProjectile>();
+	private CopyOnWriteArrayList<DemonProjectile> demonProjCopy = new CopyOnWriteArrayList<DemonProjectile>();
+	private CopyOnWriteArrayList<BeholderProjectile> beholderProjCopy = new CopyOnWriteArrayList<BeholderProjectile>();
+	private CopyOnWriteArrayList<DragonProjectile> dragonProjCopy = new CopyOnWriteArrayList<DragonProjectile>();
+	private SkeletonProjectile skeletonProj;
+	private MageProjectile mageProj;
+	private OrcProjectile orcProj;
+	private DemonProjectile demonProj;
+	private BeholderProjectile beholderProj;
+	private DragonProjectile dragonProj;
 	
 	public GamePanel(Dimension size) {
 		this.setSize(size);
@@ -98,12 +128,7 @@ public class GamePanel extends JPanel implements Runnable{
 		beholder = new BeholderTower(this, (Graphics2D) this.getGraphics(), 0, 0);
 		dragon = new DragonTower(this, (Graphics2D) this.getGraphics(), 0, 0);
 		
-		levelOne = new Level(25, monsterBee, 100, 0); // Amount, EnemyType, Health, Type
-		levelTwo = new Level(50, monsterWerebat, 200, 1);
-		levelThree = new Level(50, monsterSiren, 350, 2);
-		levelFour = new Level(50, monsterHarpy, 500, 3);
-		levelFive = new Level(75, monsterDarkHarpy, 700, 4);
-		levelSix = new Level(100, monsterBoss, 1000, 5);
+		levelOne = new Level(new ArrayList<Integer>(Arrays.asList(5, 5, 10)), new ArrayList<AnimatedSprite>(Arrays.asList(monsterBee, monsterWerebat, monsterBee)), new ArrayList<Integer>(Arrays.asList(100, 1000, 100)), new ArrayList<Integer>(Arrays.asList(0, 1, 0)), 20); // Amount per type, Enemy types, Health per type, Type num, total
 	}
 	
 	@Override
@@ -156,24 +181,30 @@ public class GamePanel extends JPanel implements Runnable{
 		}
 		
 		// Drawing all the projectiles
-		for(Projectile pj : towerOneProjectiles) {
+		for(SkeletonProjectile pj : skeletonProjCopy) {
 			pj.setGraphics(g2);
 			pj.draw();
 		}
-		for(Projectile pj2 : towerTwoProjectiles) {
+		for(SkeletonProjectile pj2 : mageProjCopy) {
 			pj2.setGraphics(g2);
 			pj2.draw();
 		}
-		
-		// Drawing Stats Panel
-		/*
-		g2.setFont(bf2.getFont());
-		g2.setColor(new Color(100, 12, 0));
-		String statsCost = "Cost: 25 ";
-		Rectangle2D costBounds = g2.getFontMetrics().getStringBounds(statsCost, g2);
-		g2.drawString(statsCost, (int)(720 + costBounds.getWidth()/2 - 50), 60);
-		*/
-		
+		for(SkeletonProjectile pj3 : orcProjCopy) {
+			pj3.setGraphics(g2);
+			pj3.draw();
+		}
+		for(DemonProjectile pj4 : demonProjCopy) {
+			pj4.setGraphics(g2);
+			pj4.draw();
+		}
+		for(BeholderProjectile pj5 : beholderProjCopy) {
+			pj5.setGraphics(g2);
+			pj5.draw();
+		}
+		for(SkeletonProjectile pj6 : dragonProjCopy) {
+			pj6.setGraphics(g2);
+			pj6.draw();
+		}
 		// If game over
 		if(gameOver) {
 			g2.setFont(bf2.getFont());
@@ -223,6 +254,17 @@ public class GamePanel extends JPanel implements Runnable{
 			}
 			yCoordinate+=48;
 		}
+		
+		// Stats Panel
+		/*
+		BufferedImage temp;
+		try {
+			temp = ImageIO.read(getClass().getResourceAsStream("/resources/Dragon.png"));
+			g2.drawImage(temp, 500, 500, null);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		*/
 	}
 	
 	private void loadResources() {
@@ -268,10 +310,10 @@ public class GamePanel extends JPanel implements Runnable{
 						if(tower.getFireBounds().intersects(levelOne.enemies[i].getBounds())) {
 							
 							// Fire
-							proj = new Projectile(this, null);
-							proj.position = tower.position;
-							proj.velocity = calculateNeededVelocity(tower.position, levelOne.enemies[i].position);
-							towerOneProjectiles.add(proj);
+							skeletonProj = new SkeletonProjectile(this, null);
+							skeletonProj.position = tower.position;
+							skeletonProj.velocity = calculateNeededVelocity(tower.position, levelOne.enemies[i].position);
+							skeletonProjCopy.add(skeletonProj);
 							Point tempCoordinate = tower.position;
 							skeletonCopy.remove(tower);
 							SkeletonTower newTower = new SkeletonTower(this, (Graphics2D) this.getGraphics(), tempCoordinate.x, tempCoordinate.y);
@@ -285,10 +327,10 @@ public class GamePanel extends JPanel implements Runnable{
 						if(t2.getFireBounds().intersects(levelOne.enemies[i].getBounds())) {
 							
 							// Fire
-							proj2 = new ProjectileTwo(this, null);
-							proj2.position = t2.position;
-							proj2.velocity = calculateNeededVelocity(t2.position, levelOne.enemies[i].position);
-							towerTwoProjectiles.add(proj2);
+							mageProj = new MageProjectile(this, null);
+							mageProj.position = t2.position;
+							mageProj.velocity = calculateNeededVelocity(t2.position, levelOne.enemies[i].position);
+							mageProjCopy.add(mageProj);
 							Point tempCoordinate = t2.position;
 							mageCopy.remove(t2);
 							MageTower newTower = new MageTower(this, (Graphics2D) this.getGraphics(), tempCoordinate.x, tempCoordinate.y);
@@ -302,10 +344,10 @@ public class GamePanel extends JPanel implements Runnable{
 						if(t3.getFireBounds().intersects(levelOne.enemies[i].getBounds())) {
 							
 							// Fire
-							proj = new Projectile(this, null);
-							proj.position = t3.position;
-							proj.velocity = calculateNeededVelocity(t3.position, levelOne.enemies[i].position);
-							towerOneProjectiles.add(proj);
+							orcProj = new OrcProjectile(this, null);
+							orcProj.position = t3.position;
+							orcProj.velocity = calculateNeededVelocity(t3.position, levelOne.enemies[i].position);
+							orcProjCopy.add(orcProj);
 							Point tempCoordinate = t3.position;
 							orcCopy.remove(t3);
 							OrcTower newTower = new OrcTower(this, (Graphics2D) this.getGraphics(), tempCoordinate.x, tempCoordinate.y);
@@ -319,10 +361,10 @@ public class GamePanel extends JPanel implements Runnable{
 						if(t4.getFireBounds().intersects(levelOne.enemies[i].getBounds())) {
 							
 							// Fire
-							proj = new Projectile(this, null);
-							proj.position = t4.position;
-							proj.velocity = calculateNeededVelocity(t4.position, levelOne.enemies[i].position);
-							towerOneProjectiles.add(proj);
+							demonProj = new DemonProjectile(this, null);
+							demonProj.position = t4.position;
+							demonProj.velocity = calculateNeededVelocity(t4.position, levelOne.enemies[i].position);
+							demonProjCopy.add(demonProj);
 							Point tempCoordinate = t4.position;
 							demonCopy.remove(t4);
 							DemonTower newTower = new DemonTower(this, (Graphics2D) this.getGraphics(), tempCoordinate.x, tempCoordinate.y);
@@ -336,10 +378,10 @@ public class GamePanel extends JPanel implements Runnable{
 						if(t5.getFireBounds().intersects(levelOne.enemies[i].getBounds())) {
 							
 							// Fire
-							proj = new Projectile(this, null);
-							proj.position = t5.position;
-							proj.velocity = calculateNeededVelocity(t5.position, levelOne.enemies[i].position);
-							towerOneProjectiles.add(proj);
+							beholderProj = new BeholderProjectile(this, null);
+							beholderProj.position = t5.position;
+							beholderProj.velocity = calculateNeededVelocity(t5.position, levelOne.enemies[i].position);
+							beholderProjCopy.add(beholderProj);
 							Point tempCoordinate = t5.position;
 							beholderCopy.remove(t5);
 							BeholderTower newTower = new BeholderTower(this, (Graphics2D) this.getGraphics(), tempCoordinate.x, tempCoordinate.y);
@@ -353,10 +395,10 @@ public class GamePanel extends JPanel implements Runnable{
 						if(t6.getFireBounds().intersects(levelOne.enemies[i].getBounds())) {
 							
 							// Fire
-							proj = new Projectile(this, null);
-							proj.position = t6.position;
-							proj.velocity = calculateNeededVelocity(t6.position, levelOne.enemies[i].position);
-							towerOneProjectiles.add(proj);
+							dragonProj = new DragonProjectile(this, null);
+							dragonProj.position = t6.position;
+							dragonProj.velocity = calculateNeededVelocity(t6.position, levelOne.enemies[i].position);
+							dragonProjCopy.add(dragonProj);
 							Point tempCoordinate = t6.position;
 							dragonCopy.remove(t6);
 							DragonTower newTower = new DragonTower(this, (Graphics2D) this.getGraphics(), tempCoordinate.x, tempCoordinate.y);
@@ -368,19 +410,19 @@ public class GamePanel extends JPanel implements Runnable{
 			}
 			
 			// Conditions for removing projectile/enemy
-			for(Projectile proj : towerOneProjectiles) {
-				if(proj.position.x < 0 || proj.position.y < 0 || proj.position.x > this.getWidth() || proj.position.y > this.getHeight()) {
-					towerOneProjectiles.remove(proj);
+			for(SkeletonProjectile skeletonProj : skeletonProjCopy) {
+				if(skeletonProj.position.x < 0 || skeletonProj.position.y < 0 || skeletonProj.position.x > this.getWidth() || skeletonProj.position.y > this.getHeight()) {
+					skeletonProjCopy.remove(skeletonProj);
 				}
 				/*
-				if(proj.position.x > skeletonCoordinates.get(proj1).getX() + 200 || proj.position.x < skeletonCoordinates.get(proj1).getX() - 200 || proj.position.y > skeletonCoordinates.get(proj1).getY() + 200 || proj.position.y < skeletonCoordinates.get(proj1).getY() - 200) {
-					towerOneProjectiles.remove(proj);
+				if(skeletonProj.position.x > skeletonCoordinates.get(proj1).getX() + 200 || skeletonProj.position.x < skeletonCoordinates.get(proj1).getX() - 200 || skeletonProj.position.y > skeletonCoordinates.get(proj1).getY() + 200 || skeletonProj.position.y < skeletonCoordinates.get(proj1).getY() - 200) {
+					skeletonProjCopy.remove(skeletonProj);
 				}
 				*/
 				for(int ctr = 0; ctr < levelOne.getEnemyNumber(); ctr++) {
-					if(proj.getBounds().intersects(levelOne.enemies[ctr].getBounds())) {
+					if(skeletonProj.getBounds().intersects(levelOne.enemies[ctr].getBounds())) {
 						levelOne.enemies[ctr].health -= 100;
-						towerOneProjectiles.remove(proj);
+						skeletonProjCopy.remove(skeletonProj);
 						if(levelOne.enemies[ctr].health <=0) {
 							levelOne.enemies[ctr].alive = false;
 							levelOne.enemies[ctr].position = new Point(-200,-200);
@@ -395,14 +437,106 @@ public class GamePanel extends JPanel implements Runnable{
 					}
 				}
 			}
-			for(ProjectileTwo projects : towerTwoProjectiles) {
-				if(projects.position.x < 0 || projects.position.y < 0 || projects.position.x > this.getWidth() || projects.position.y > this.getHeight()) {
-					towerTwoProjectiles.remove(projects);
+			for(MageProjectile mp : mageProjCopy) {
+				if(mp.position.x < 0 || mp.position.y < 0 || mp.position.x > this.getWidth() || mp.position.y > this.getHeight()) {
+					mageProjCopy.remove(mp);
 				}
 				for(int ctr = 0; ctr < levelOne.getEnemyNumber(); ctr++) {
-					if(projects.getBounds().intersects(levelOne.enemies[ctr].getBounds())) {
-						levelOne.enemies[ctr].health -= 500;
-						towerTwoProjectiles.remove(projects);
+					if(mp.getBounds().intersects(levelOne.enemies[ctr].getBounds())) {
+						levelOne.enemies[ctr].health -= 200;
+						mageProjCopy.remove(mp);
+						if(levelOne.enemies[ctr].health <=0) {
+							levelOne.enemies[ctr].alive = false;
+							levelOne.enemies[ctr].position = new Point(-200,-200);
+							
+							// Add more gold on higher levels
+							Main.actionPanel.addGold(5);
+							if(level == 3)	Main.actionPanel.addGold(15);
+							if(level == 4)	Main.actionPanel.addGold(25);
+							if(level == 5) 	Main.actionPanel.addGold(35);
+							Main.effectsPlayer = new EffectsPlayer();
+							Main.effectsPlayer.clip.loop(0);
+						}
+					}
+				}
+			}
+			for(OrcProjectile op : orcProjCopy) {
+				if(op.position.x < 0 || op.position.y < 0 || op.position.x > this.getWidth() || op.position.y > this.getHeight()) {
+					orcProjCopy.remove(op);
+				}
+				for(int ctr = 0; ctr < levelOne.getEnemyNumber(); ctr++) {
+					if(op.getBounds().intersects(levelOne.enemies[ctr].getBounds())) {
+						levelOne.enemies[ctr].health -= 250;
+						orcProjCopy.remove(op);
+						if(levelOne.enemies[ctr].health <=0) {
+							levelOne.enemies[ctr].alive = false;
+							levelOne.enemies[ctr].position = new Point(-200,-200);
+							
+							// Add more gold on higher levels
+							Main.actionPanel.addGold(5);
+							if(level == 3)	Main.actionPanel.addGold(15);
+							if(level == 4)	Main.actionPanel.addGold(25);
+							if(level == 5) 	Main.actionPanel.addGold(35);
+							Main.effectsPlayer = new EffectsPlayer();
+							Main.effectsPlayer.clip.loop(0);
+						}
+					}
+				}
+			}
+			for(DemonProjectile dep : demonProjCopy) {
+				if(dep.position.x < 0 || dep.position.y < 0 || dep.position.x > this.getWidth() || dep.position.y > this.getHeight()) {
+					demonProjCopy.remove(dep);
+				}
+				for(int ctr = 0; ctr < levelOne.getEnemyNumber(); ctr++) {
+					if(dep.getBounds().intersects(levelOne.enemies[ctr].getBounds())) {
+						levelOne.enemies[ctr].health -= 250;
+						demonProjCopy.remove(dep);
+						if(levelOne.enemies[ctr].health <=0) {
+							levelOne.enemies[ctr].alive = false;
+							levelOne.enemies[ctr].position = new Point(-200,-200);
+							
+							// Add more gold on higher levels
+							Main.actionPanel.addGold(5);
+							if(level == 3)	Main.actionPanel.addGold(15);
+							if(level == 4)	Main.actionPanel.addGold(25);
+							if(level == 5) 	Main.actionPanel.addGold(35);
+							Main.effectsPlayer = new EffectsPlayer();
+							Main.effectsPlayer.clip.loop(0);
+						}
+					}
+				}
+			}
+			for(BeholderProjectile bp : beholderProjCopy) {
+				if(bp.position.x < 0 || bp.position.y < 0 || bp.position.x > this.getWidth() || bp.position.y > this.getHeight()) {
+					beholderProjCopy.remove(bp);
+				}
+				for(int ctr = 0; ctr < levelOne.getEnemyNumber(); ctr++) {
+					if(bp.getBounds().intersects(levelOne.enemies[ctr].getBounds())) {
+						levelOne.enemies[ctr].health -= 250;
+						beholderProjCopy.remove(bp);
+						if(levelOne.enemies[ctr].health <=0) {
+							levelOne.enemies[ctr].alive = false;
+							levelOne.enemies[ctr].position = new Point(-200,-200);
+							
+							// Add more gold on higher levels
+							Main.actionPanel.addGold(5);
+							if(level == 3)	Main.actionPanel.addGold(15);
+							if(level == 4)	Main.actionPanel.addGold(25);
+							if(level == 5) 	Main.actionPanel.addGold(35);
+							Main.effectsPlayer = new EffectsPlayer();
+							Main.effectsPlayer.clip.loop(0);
+						}
+					}
+				}
+			}
+			for(DragonProjectile drp : dragonProjCopy) {
+				if(drp.position.x < 0 || drp.position.y < 0 || drp.position.x > this.getWidth() || drp.position.y > this.getHeight()) {
+					dragonProjCopy.remove(drp);
+				}
+				for(int ctr = 0; ctr < levelOne.getEnemyNumber(); ctr++) {
+					if(drp.getBounds().intersects(levelOne.enemies[ctr].getBounds())) {
+						levelOne.enemies[ctr].health -= 1000;
+						dragonProjCopy.remove(drp);
 						if(levelOne.enemies[ctr].health <=0) {
 							levelOne.enemies[ctr].alive = false;
 							levelOne.enemies[ctr].position = new Point(-200,-200);

@@ -1,7 +1,12 @@
-package main;
+package menu;
 
 import java.awt.*;
 import javax.swing.*;
+
+import custom.CreateFont;
+import custom.ImageButton;
+import custom.MenuPanel;
+import custom.OutlineLabel;
 
 public class MainMenu extends JPanel
 {

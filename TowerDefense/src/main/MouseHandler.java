@@ -8,6 +8,8 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseWheelEvent;
 import java.util.Scanner;
 
+import towers.SkeletonTower;
+
 // Custom mouse input class
 public class MouseHandler extends MouseAdapter {
 	
