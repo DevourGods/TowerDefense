@@ -1,7 +1,6 @@
 package monsters;
 
 import java.awt.Graphics2D;
-
 import javax.swing.JPanel;
 
 public class MonsterSiren extends MonsterBee{

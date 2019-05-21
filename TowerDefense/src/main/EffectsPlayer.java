@@ -5,7 +5,7 @@ import javax.sound.sampled.*;
 
 public class EffectsPlayer {
 	
-	static Clip clip = null;
+	Clip clip = null;
 	AudioInputStream audioIn;
 	
 	public EffectsPlayer() { // Loads sound

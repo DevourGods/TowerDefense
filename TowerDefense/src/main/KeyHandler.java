@@ -15,7 +15,9 @@ public class KeyHandler implements KeyListener {
 		if (key == KeyEvent.VK_ESCAPE) {
 			System.out.println("test");
 			int input = JOptionPane.showConfirmDialog(null, "Exit to main menu?");
-			
+			if (input == 0) {
+				
+			}
 		}
 	}
 

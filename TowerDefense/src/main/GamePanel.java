@@ -86,8 +86,8 @@ public class GamePanel extends JPanel implements Runnable{
 	boolean loaded = false;
 	
 	public Thread gameLoop;
-	private AnimatedSprite[] enemies;
-	private SkeletonProjectile projectile;
+	//private AnimatedSprite[] enemies;
+	//private SkeletonProjectile projectile;
 	
 	public MouseHandler mouseHandler = new MouseHandler(this.getGraphics());
 	

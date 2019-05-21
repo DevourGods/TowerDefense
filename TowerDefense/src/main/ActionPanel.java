@@ -294,5 +294,4 @@ public class ActionPanel extends JPanel implements ActionListener {
 			gameStarted = true;
 		}
 	}
-
 }

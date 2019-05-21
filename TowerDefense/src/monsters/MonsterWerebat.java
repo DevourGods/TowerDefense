@@ -1,8 +1,6 @@
 package monsters;
 
 import java.awt.Graphics2D;
-import java.awt.Point;
-
 import javax.swing.JPanel;
 
 public class MonsterWerebat extends MonsterBee {

@@ -5,12 +5,12 @@ import javax.sound.sampled.*;
 
 public class MusicPlayer{
 	
-	static Clip clip = null;
+	Clip clip = null;
 	AudioInputStream audioIn;
 	public Thread soundLoop = null;
 	
 	public MusicPlayer() {
-		//load the sound
+		// Load the sound
 		try{
 			audioIn = AudioSystem.getAudioInputStream(getClass().getResourceAsStream("/resources/music.wav"));
 			clip = AudioSystem.getClip();

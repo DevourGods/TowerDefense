@@ -13,7 +13,9 @@ import towers.SkeletonTower;
 // Custom mouse input class
 public class MouseHandler extends MouseAdapter {
 	
+	@SuppressWarnings("unused")
 	private int mouseX;
+	@SuppressWarnings("unused")
 	private int mouseY;
 	public Graphics g2;
 	public Thread mouseThread;
@@ -59,6 +61,7 @@ public class MouseHandler extends MouseAdapter {
 	@Override
 	public void mousePressed(MouseEvent e) {}
 	
+	@SuppressWarnings("static-access")
 	@Override
 	public void mouseReleased(MouseEvent e) {
 		mouseX = e.getX();

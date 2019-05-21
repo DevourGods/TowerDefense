@@ -1,8 +1,6 @@
 package main;
 
-import java.awt.Point;
 import java.util.ArrayList;
-
 import monsters.MonsterBee;
 import monsters.MonsterBoss;
 import monsters.MonsterDarkHarpy;

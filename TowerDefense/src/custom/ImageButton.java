@@ -8,7 +8,6 @@ import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.border.Border;
 
 // Custom button class, created to make an image a button easier and with options like changing the size
 public class ImageButton extends JButton

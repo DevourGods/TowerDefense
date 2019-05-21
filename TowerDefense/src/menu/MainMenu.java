@@ -5,7 +5,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.net.URL;
 import javax.swing.*;
-import main.Main;
 import custom.CreateFont;
 import custom.ImageButton;
 import custom.MenuPanel;
@@ -80,6 +79,17 @@ public class MainMenu extends JPanel implements ActionListener
 		} else if (e.getSource() == optionsBTN) {
 			MenuPanel options = new MenuPanel("/resources/Menu-Small.png");
 			frame.setContentPane(options);
+			options.setLayout(new BoxLayout(options, BoxLayout.Y_AXIS));
+			
+			CreateFont zombieFont = new CreateFont("/resources/Zombie_Holocaust.ttf", 120);
+			OutlineLabel title = new OutlineLabel("Undead Defense", true, Color.BLACK);
+			title.setFont(zombieFont.getFont());
+			title.setForeground(new Color(100, 12, 0));
+
+			options.add(Box.createRigidArea(new Dimension(0, 40))); // Spacing
+			options.add(title);
+			System.out.println("test");
+			
 		} else if (e.getSource() == quitBTN) {
 			frame.dispose();
 		}
