@@ -126,7 +126,6 @@ public class MouseHandler extends MouseAdapter {
 				Main.gamePanel.beholderCopy.add(tow);
 			}
 			if(!towerExists && Main.actionPanel.goldLeft >=1000 && Main.actionPanel.getTowerSelection() == 6) {
-				System.out.println("yes");
 				Main.gamePanel.dragonCoordinates.add(new Point(roundedX, roundedY));
 				Main.actionPanel.buyDragonTower();
 				Main.gamePanel.dragonCopy.add(tow);

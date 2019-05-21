@@ -6,7 +6,7 @@ import java.awt.*;
 
 public class Main {
 	
-	private JFrame mainFrame;
+	private static JFrame mainFrame;
 	private Dimension frameSize;
 	public static ActionPanel actionPanel;
 	public static MusicPlayer soundPlayer;
@@ -15,7 +15,7 @@ public class Main {
 	public static long clipTime = 0;
 	public static EffectsPlayer effectsPlayer;
 	
-	private Main() {
+	public Main() {
 		initializeVariables();
 		initializeInterface();
 	}
@@ -63,8 +63,14 @@ public class Main {
 		mainFrame.setVisible(true);
 	}
 	
+	public static void startGame() {
+		new Main();
+	}
+	
+	/*
 	public static void main(String[] args) {
 		new Main();
 	}
+	*/
 
 }
