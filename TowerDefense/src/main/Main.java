@@ -24,7 +24,7 @@ public class Main {
 		mainFrame  = new JFrame("Undead Defense");
 		frameSize = new Dimension(1280, 720);
 		actionPanel = new ActionPanel(new Dimension(320, 720));
-		gamePanel = new GamePanel(new Dimension(960, 720));
+		gamePanel = new GamePanel(new Dimension(720, 720));
 		soundPlayer = new MusicPlayer();
 		effectsPlayer = new EffectsPlayer();
 	}

@@ -152,14 +152,12 @@ public class ActionPanel extends JPanel implements ActionListener {
 		goldLeft -= 350;
 		gold.setText("Gold: "+goldLeft);
 		gold.setBounds((int)(320 - gold.getPreferredSize().getWidth()) / 2,210,400,100);
-	}
-	
+	}	
 	public void buyMageTower() {
 		goldLeft -= 550;
 		gold.setText("Gold: "+goldLeft);
 		gold.setBounds((int)(320 - gold.getPreferredSize().getWidth()) / 2,210,400,100);
-	}
-	
+	}	
 	public void buyOrcTower() {
 		goldLeft -= 725;
 		gold.setText("Gold: "+goldLeft);

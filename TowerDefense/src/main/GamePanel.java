@@ -168,7 +168,7 @@ public class GamePanel extends JPanel implements Runnable {
 		Graphics2D g2 = (Graphics2D) g;
 		buildMap(g2);
 		mouseHandler.g2 = this.getGraphics();
-
+			
 		for(AnimatedSprite m : levelOne.getEnemyArray()) {
 			m.setGraphics(g2);
 			m.draw();
@@ -279,26 +279,59 @@ public class GamePanel extends JPanel implements Runnable {
 					g2.drawImage(grass, xCoordinate, yCoordinate, null);
 				} else if(row.charAt(x) == '1') {
 					g2.drawImage(path, xCoordinate, yCoordinate, null);
-				} else if(row.charAt(x) == '2') {
+				} else if(row.charAt(x) == '2' ) {
 					g2.drawImage(rock, xCoordinate, yCoordinate, null);
 				}
 				xCoordinate+=48;
 			}
 			yCoordinate+=48;
 		}
-		
-		// Stats Panel
-		/*
-		BufferedImage temp;
-		try {
-			temp = ImageIO.read(getClass().getResourceAsStream("/resources/Dragon.png"));
-			g2.drawImage(temp, 500, 500, null);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		*/
+		drawStats(g);
 	}
 	
+	private void drawStats(Graphics g) {
+		int y = 40;
+		Graphics2D g2 = (Graphics2D) g;
+		CreateFont bf3 = new CreateFont("/resources/BreatheFire2.ttf", 30);
+		g2.setFont(bf3.getFont());
+		g2.setColor(Color.BLACK);
+		String skeletonStats = "Skeleton" + "\nCost: 350" + "\nFirerate: 100" + "\nDamage: 50";
+		for (String line : skeletonStats.split("\n")) {
+			g2.drawString(line, 760, y);
+			y += 20;
+		}
+		y += 35;
+		String mageStats = "Mage" + "\nCost: 550" + "\nFirerate: 75" + "\nDamage: 60";
+		for (String line : mageStats.split("\n")) {
+			g2.drawString(line, 760, y);
+			y += 20;
+		}
+		y += 35;
+		String orcStats = "Orc" + "\nCost: 725" + "\nFirerate: 200" + "\nDamage: 120";
+		for (String line : orcStats.split("\n")) {
+			g2.drawString(line, 760, y);
+			y += 20;
+		}
+		y += 35;
+		String demonStats = "Demon" + "\nCost: 825" + "\nFirerate: 50" + "\nDamage: 45";
+		for (String line : demonStats.split("\n")) {
+			g2.drawString(line, 760, y);
+			y += 20;
+		}
+		y += 35;
+		String beholderStats = "Beholder" + "\nCost: 900" + "\nFirerate: 10" + "\nDamage: 15";
+		for (String line : beholderStats.split("\n")) {
+			g2.drawString(line, 760, y);
+			y += 20;
+		}
+		y += 35;
+		String dragonStats = "Dragon" + "\nCost: 1800" + "\nFirerate: 75" + "\nDamage: 250";
+		for (String line : dragonStats.split("\n")) {
+			g2.drawString(line, 760, y);
+			y += 20;
+		}
+	}
+
 	private void loadResources() {
 		try{
 			grass = ImageIO.read(getClass().getResourceAsStream("/resources/Grass.png"));
