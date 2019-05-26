@@ -47,6 +47,7 @@ public class GamePanel extends JPanel implements Runnable {
 	private int yCoordinate = 0;
 	private String row = "";
 	private CreateFont bf2;
+	private boolean statsDrawn = false;
 	
 	private MonsterBee monsterBee;
 	private MonsterWerebat monsterWerebat;
@@ -166,9 +167,10 @@ public class GamePanel extends JPanel implements Runnable {
 	@Override
 	public void paint(Graphics g) {
 		Graphics2D g2 = (Graphics2D) g;
-		buildMap(g2);
 		mouseHandler.g2 = this.getGraphics();
-			
+		buildMap(g2);
+		drawStats(g2);
+		
 		for(AnimatedSprite m : levelOne.getEnemyArray()) {
 			m.setGraphics(g2);
 			m.draw();
@@ -286,7 +288,6 @@ public class GamePanel extends JPanel implements Runnable {
 			}
 			yCoordinate+=48;
 		}
-		drawStats(g);
 	}
 	
 	private void drawStats(Graphics g) {

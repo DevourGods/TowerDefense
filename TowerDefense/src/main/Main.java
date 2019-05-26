@@ -3,6 +3,7 @@ package main;
 import javax.sound.sampled.Clip;
 import javax.swing.*;
 import java.awt.*;
+import java.net.URL;
 
 public class Main {
 	
@@ -52,6 +53,10 @@ public class Main {
 		mainFrame.setSize(frameSize);
 		mainFrame.setResizable(false);
 		mainFrame.setFocusable(true);
+		
+		URL iconURL = getClass().getResource("/resources/Icon.png");
+		ImageIcon icon = new ImageIcon(iconURL);
+		mainFrame.setIconImage(icon.getImage());
 		
 		mainFrame.add(actionPanel);
 		actionPanel.setBounds(0,0,320,720);
