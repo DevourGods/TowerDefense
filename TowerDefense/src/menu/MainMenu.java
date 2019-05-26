@@ -21,8 +21,9 @@ public class MainMenu extends JPanel implements ActionListener
 	private MenuPanel menu;
 	
 	private ImageButton startBTN;
-	private ImageButton optionsBTN;
+	private ImageButton aboutBTN;
 	private ImageButton quitBTN;
+	private ImageButton backBTN;
 	
 	public MainMenu()
 	{	
@@ -41,8 +42,9 @@ public class MainMenu extends JPanel implements ActionListener
 		
 		OutlineLabel title = new OutlineLabel("Undead Defense", true, Color.BLACK);
 		startBTN = new ImageButton("/resources/StartButton.png", true, 0.7, false);
-		optionsBTN = new ImageButton("/resources/OptionsButton.png", true, 0.7, false);
+		aboutBTN = new ImageButton("/resources/AboutButton.png", true, 0.7, false);
 		quitBTN = new ImageButton("/resources/QuitButton.png", true, 0.7, false);
+		backBTN = new ImageButton("/resources/BackButton.png", true, 0.7, false);
 		
 		CreateFont zombieFont = new CreateFont("/resources/Zombie_Holocaust.ttf", 120);
 
@@ -55,14 +57,14 @@ public class MainMenu extends JPanel implements ActionListener
 		menu.add(Box.createRigidArea(new Dimension(0, 70)));
 		menu.add(startBTN);
 		menu.add(Box.createRigidArea(new Dimension(0, 50)));
-		menu.add(optionsBTN);
+		menu.add(aboutBTN);
 		menu.add(Box.createRigidArea(new Dimension(0, 50)));
 		menu.add(quitBTN);
 		
 		
 		// Adds actionListeners
 		startBTN.addActionListener(this);
-		optionsBTN.addActionListener(this);
+		aboutBTN.addActionListener(this);
 		quitBTN.addActionListener(this);
 		
 		// Adds panel to frame
@@ -73,25 +75,47 @@ public class MainMenu extends JPanel implements ActionListener
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == startBTN) {
-			MainMenu.frame.dispose();
+			frame.dispose();
 			main.Main.startGame();
 			
-		} else if (e.getSource() == optionsBTN) {
-			MenuPanel options = new MenuPanel("/resources/Menu-Small.png");
-			frame.setContentPane(options);
-			options.setLayout(new BoxLayout(options, BoxLayout.Y_AXIS));
-			
+		} else if (e.getSource() == aboutBTN) {
+			MenuPanel about = new MenuPanel("/resources/Menu-Small.png");
+			about.setLayout(new BoxLayout(about, BoxLayout.Y_AXIS));
+		
 			CreateFont zombieFont = new CreateFont("/resources/Zombie_Holocaust.ttf", 120);
 			OutlineLabel title = new OutlineLabel("Undead Defense", true, Color.BLACK);
 			title.setFont(zombieFont.getFont());
 			title.setForeground(new Color(100, 12, 0));
-
-			options.add(Box.createRigidArea(new Dimension(0, 40))); // Spacing
-			options.add(title);
-			System.out.println("test");
+			
+			CreateFont bf2 = new CreateFont("/resources/BreatheFire2.ttf", 40);
+			String s = "Undead Defense is a tower defense game. Your goal is to stop the monster girls from getting to your base by placing undead creatures around the map. You purchase towers using gold acquired from killing enemies. If an enemy gets through, you lose a life. If you run out of lives, or let the boss through, you lose. Good Luck!";
+			JTextArea text = new JTextArea();
+			text.setMaximumSize(new Dimension(1000, 300));
+			text.setLineWrap(true);
+			text.setWrapStyleWord(true);
+			text.setText(s);
+			text.setFont(bf2.getFont());
+			text.setForeground(Color.BLACK);//new Color(100, 12, 0));
+			text.setBackground(Color.GRAY);
+			text.setEditable(false);
+			
+			// Adding components to about panel
+			about.add(Box.createRigidArea(new Dimension(0, 40))); // Spacing
+			about.add(title);
+			about.add(Box.createRigidArea(new Dimension(0, 70)));
+			about.add(text);
+			about.add(Box.createRigidArea(new Dimension(0, 70)));
+			about.add(backBTN);
+			
+			backBTN.addActionListener(this);
+			
+			// Setting panel to JFrame
+			frame.setContentPane(about);
 			
 		} else if (e.getSource() == quitBTN) {
 			frame.dispose();
+		} else if (e.getSource() == backBTN) {
+			frame.setContentPane(menu);
 		}
 	}
 	

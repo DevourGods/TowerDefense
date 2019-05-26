@@ -149,34 +149,34 @@ public class ActionPanel extends JPanel implements ActionListener {
 	}
 	
 	public void buySkeletonTower() {
-		goldLeft -= 225;
+		goldLeft -= 350;
 		gold.setText("Gold: "+goldLeft);
 		gold.setBounds((int)(320 - gold.getPreferredSize().getWidth()) / 2,210,400,100);
 	}
 	
 	public void buyMageTower() {
-		goldLeft -= 375;
+		goldLeft -= 550;
 		gold.setText("Gold: "+goldLeft);
 		gold.setBounds((int)(320 - gold.getPreferredSize().getWidth()) / 2,210,400,100);
 	}
 	
 	public void buyOrcTower() {
-		goldLeft -= 315;
+		goldLeft -= 725;
 		gold.setText("Gold: "+goldLeft);
 		gold.setBounds((int)(320 - gold.getPreferredSize().getWidth()) / 2,210,400,100);
 	}
 	public void buyDemonTower() {
-		goldLeft -= 420;
+		goldLeft -= 825;
 		gold.setText("Gold: "+goldLeft);
 		gold.setBounds((int)(320 - gold.getPreferredSize().getWidth()) / 2,210,400,100);
 	}
 	public void buyBeholderTower() {
-		goldLeft -= 500;
+		goldLeft -= 900;
 		gold.setText("Gold: "+goldLeft);
 		gold.setBounds((int)(320 - gold.getPreferredSize().getWidth()) / 2,210,400,100);
 	}
 	public void buyDragonTower() {
-		goldLeft -= 1250;
+		goldLeft -= 1800;
 		gold.setText("Gold: "+goldLeft);
 		gold.setBounds((int)(320 - gold.getPreferredSize().getWidth()) / 2,210,400,100);
 	}
